@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Інтерактивний тренажер з геометрії для 10 класу: Паралельне проекціювання, його властивості. Зображення фігур у стереометрії (за підручником О.С. Істера).">
+    <title>Паралельне проекціювання та зображення фігур — Геометрія 10 клас</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --bg-main: #f1f5f9;
+            --bg-card: #ffffff;
+            --primary: #1e3a8a;
+            --primary-light: #2563eb;
+            --primary-soft: #eff6ff;
+            --accent: #0d9488;
+            --accent-soft: #f0fdfa;
+            --amber: #d97706;
+            --amber-soft: #fffbeb;
+            --danger: #dc2626;
+            --danger-soft: #fef2f2;
+            --success: #16a34a;
+            --success-soft: #f0fdf4;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.55;
+            padding-bottom: 60px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Header & Student Dashboard */
+        .top-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%);
+            color: #ffffff;
+            padding: 24px 16px 32px;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.2);
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .header-top {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .badge-topic {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        /* Student Profile Bar */
+        .student-panel {
+            background: #ffffff;
+            color: var(--text-dark);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow);
+            margin-top: -20px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+            display: grid;
+            grid-template-columns: 1.5fr 0.7fr auto;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .stats-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .stat-pill {
+            background: var(--primary-soft);
+            border: 1px solid #bfdbfe;
+            padding: 8px 14px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 92px;
+        }
+
+        .stat-pill.score {
+            background: var(--accent-soft);
+            border-color: #99f6e4;
+        }
+
+        .stat-val {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.15;
+        }
+
+        .stat-pill.score .stat-val {
+            color: var(--accent);
+        }
+
+        .stat-lbl {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* Progress Navigation */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+        }
+
+        .nav-chip {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-chip:hover {
+            border-color: var(--primary-light);
+            background: var(--primary-soft);
+        }
+
+        .nav-chip .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        .nav-chip.done .dot {
+            background: var(--success);
+        }
+
+        /* Cards & Sections */
+        .section-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 26px;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .section-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .section-header h2 {
+            font-size: 1.22rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .section-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            transition: all 0.18s ease;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .btn-primary {
+            background: var(--primary-light);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        .btn-accent:hover {
+            background: #0f766e;
+        }
+
+        .btn-info {
+            background: var(--amber-soft);
+            color: #92400e;
+            border: 1.5px solid #fcd34d;
+        }
+
+        .btn-info:hover {
+            background: #fef3c7;
+        }
+
+        .btn-outline {
+            background: #ffffff;
+            color: var(--text-dark);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+
+        .btn-sm {
+            padding: 7px 13px;
+            font-size: 0.84rem;
+            min-height: 38px;
+        }
+
+        /* Simulation Layout */
+        .sim-grid {
+            display: grid;
+            grid-template-columns: 1.45fr 1fr;
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .canvas-box {
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            touch-action: pan-y;
+        }
+
+        .controls-panel {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            justify-content: space-between;
+        }
+
+        .control-item label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary-light);
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .toggle-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .toggle-btn {
+            padding: 9px 10px;
+            border-radius: 9px;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            font-size: 0.83rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s;
+        }
+
+        .toggle-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .metrics-box {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.85rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .sim-challenge {
+            margin-top: 18px;
+            background: var(--primary-soft);
+            border: 1.5px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .sim-challenge h4 {
+            font-size: 0.96rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .radio-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .radio-card {
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 10px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .radio-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .radio-card input {
+            accent-color: var(--primary-light);
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Feedback Banners */
+        .feedback {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.ok {
+            background: var(--success-soft);
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .feedback.err {
+            background: var(--danger-soft);
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        /* Drag and Drop Section */
+        .dnd-instruction {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-light);
+            padding: 10px 14px;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .draggable-pool {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            padding: 14px;
+            background: #f1f5f9;
+            border: 2px dashed #94a3b8;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            min-height: 120px;
+        }
+
+        .drag-card {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            cursor: grab;
+            user-select: none;
+            transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .drag-card:active {
+            cursor: grabbing;
+        }
+
+        .drag-card.selected-touch {
+            border-color: var(--amber);
+            background: var(--amber-soft);
+            transform: scale(1.03);
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.25);
+        }
+
+        .drag-card svg {
+            width: 100%;
+            max-width: 130px;
+            height: 86px;
+            display: block;
+            margin: 0 auto 6px;
+        }
+
+        .drag-card span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: block;
+        }
+
+        .drop-targets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .drop-zone-card {
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .drop-prompt {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .drop-prompt small {
+            display: block;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .drop-slot {
+            min-height: 115px;
+            border: 2px dashed #94a3b8;
+            border-radius: 10px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .drop-slot.drag-over {
+            background: var(--primary-soft);
+            border-color: var(--primary-light);
+        }
+
+        .drop-slot.correct {
+            border-style: solid;
+            border-color: var(--success);
+            background: var(--success-soft);
+        }
+
+        .drop-slot.wrong {
+            border-style: solid;
+            border-color: var(--danger);
+            background: var(--danger-soft);
+        }
+
+        .slot-placeholder {
+            font-size: 0.82rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        /* Section 4: Polyhedra & Problems */
+        .poly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .poly-card {
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .poly-card h4 {
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .poly-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .poly-svg {
+            width: 100%;
+            max-width: 240px;
+            height: 190px;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .edge-interactive {
+            cursor: pointer;
+            transition: stroke 0.15s;
+        }
+
+        .edge-interactive:hover {
+            stroke: var(--amber);
+        }
+
+        .calc-problems {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .problem-box {
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .problem-box h4 {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .problem-box p {
+            font-size: 0.88rem;
+            margin-bottom: 12px;
+        }
+
+        .inline-answer {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .inline-answer input {
+            width: 110px;
+            padding: 9px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Report & PDF Section */
+        .report-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+            border: 2px solid #93c5fd;
+        }
+
+        .attempt-table-wrap {
+            overflow-x: auto;
+            margin: 16px 0;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f1f5f9;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .tag-ok {
+            background: var(--success-soft);
+            color: #166534;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.78rem;
+        }
+
+        .tag-err {
+            background: var(--danger-soft);
+            color: #991b1b;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.78rem;
+        }
+
+        /* Modal "Дізнайся більше" */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 1000;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            max-width: 680px;
+            width: 100%;
+            max-height: 86vh;
+            overflow-y: auto;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 14px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.18rem;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: #f1f5f9;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--text-dark);
+            flex-shrink: 0;
+        }
+
+        .modal-body p {
+            margin-bottom: 10px;
+            font-size: 0.94rem;
+        }
+
+        .modal-body ul {
+            margin: 8px 0 12px 20px;
+            font-size: 0.92rem;
+        }
+
+        .modal-body li {
+            margin-bottom: 6px;
+        }
+
+        .theorem-callout {
+            background: var(--primary-soft);
+            border-left: 4px solid var(--primary-light);
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Mobile Adaptations */
+        @media (max-width: 860px) {
+            .student-panel {
+                grid-template-columns: 1fr;
+            }
+            .stats-strip {
+                justify-content: flex-start;
+            }
+            .sim-grid {
+                grid-template-columns: 1fr;
+            }
+            .calc-problems {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-card {
+                padding: 16px;
+            }
+            .stat-pill {
+                flex: 1;
+                min-width: 78px;
+                padding: 7px 8px;
+            }
+            .btn {
+                width: 100%;
+            }
+            .section-header .btn {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-banner">
+    <div class="container">
+        <div class="header-top">
+            <div>
+                <div class="badge-topic">📐 Геометрія • 10 клас • § 6 (О.С. Істер, стор. 89–97)</div>
+                <h1>Паралельне проекціювання та зображення фігур у стереометрії</h1>
+                <p class="subtitle">Інтерактивна лабораторія, 3D-симуляції, тренажер зображень плоских і просторових фігур та PDF-звіт</p>
+            </div>
+            <button class="btn btn-info btn-sm" onclick="openInfoModal('history')">📖 Історична довідка (Г. Монж)</button>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <!-- Панель учня -->
+    <section class="student-panel" aria-label="Дані учня та прогрес">
+        <div class="input-group">
+            <label for="studentName">Прізвище та ім'я учня</label>
+            <input type="text" id="studentName" placeholder="Наприклад: Коваленко Максим" oninput="updateReportHeader()">
+        </div>
+        <div class="input-group">
+            <label for="studentClass">Клас</label>
+            <input type="text" id="studentClass" value="10-А" oninput="updateReportHeader()">
+        </div>
+        <div class="stats-strip">
+            <div class="stat-pill">
+                <span class="stat-val" id="totalAttempts">0</span>
+                <span class="stat-lbl">Спроб</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-val" id="tasksDone">0 / 6</span>
+                <span class="stat-lbl">Виконано</span>
+            </div>
+            <div class="stat-pill score">
+                <span class="stat-val" id="grade12">0 / 12</span>
+                <span class="stat-lbl">Бал НУШ</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Швидка навігація -->
+    <nav class="nav-tabs" aria-label="Навігація по завданнях">
+        <a href="#sim1-sec" class="nav-chip" id="nav-sim1"><span class="dot"></span>1. Симуляція: Тінь і промені (Мал. 6.3)</a>
+        <a href="#sim2-sec" class="nav-chip" id="nav-sim2"><span class="dot"></span>2. Симуляція: 3D-проекціювання (Мал. 6.1–6.2)</a>
+        <a href="#dnd-sec" class="nav-chip" id="nav-dnd"><span class="dot"></span>3. Drag & Drop: Плоскі фігури</a>
+        <a href="#poly-sec" class="nav-chip" id="nav-poly"><span class="dot"></span>4. Многогранники та задачі</a>
+        <a href="#report-sec" class="nav-chip" id="nav-rep"><span class="dot"></span>5. PDF-звіт учня</a>
+    </nav>
+
+    <!-- БЛОК 1: СИМУЛЯЦІЯ 1 (Мал. 6.3, стор. 90) -->
+    <section class="section-card" id="sim1-sec">
+        <div class="section-header">
+            <div class="section-title-wrap">
+                <div class="step-num">1</div>
+                <div>
+                    <h2>Симуляція №1: Прототип паралельного проекціювання у побуті (Мал. 6.3, стор. 90)</h2>
+                    <p>Дослідіть тіні дерева та хлопчика на землі й стіні при сонячному та електричному освітленні</p>
+                </div>
+            </div>
+            <button class="btn btn-info btn-sm" onclick="openInfoModal('sim1')">💡 Дізнайся більше</button>
+        </div>
+
+        <div class="sim-grid">
+            <div class="canvas-box">
+                <canvas id="shadowCanvas" width="640" height="390"></canvas>
+            </div>
+            <div class="controls-panel">
+                <div>
+                    <div class="control-item" style="margin-bottom:12px;">
+                        <label>Джерело світла (тип проекціювання):</label>
+                        <div class="toggle-group">
+                            <button type="button" class="toggle-btn active" id="modeSun" onclick="setLightMode('sun')">☀️ Сонце (паралельне)</button>
+                            <button type="button" class="toggle-btn" id="modeLamp" onclick="setLightMode('lamp')">🔦 Ліхтар (центральне)</button>
+                        </div>
+                    </div>
+
+                    <div class="control-item" style="margin-bottom:12px;">
+                        <label for="rayAngle"><span>Кут нахилу променів $l$:</span> <span id="rayAngleVal">42°</span></label>
+                        <input type="range" id="rayAngle" min="22" max="68" value="42" oninput="drawShadowScene()">
+                    </div>
+
+                    <div class="control-item">
+                        <label for="boyDist"><span>Відстань хлопчика до стіни:</span> <span id="boyDistVal">170 см</span></label>
+                        <input type="range" id="boyDist" min="55" max="290" value="170" oninput="drawShadowScene()">
+                    </div>
+                </div>
+
+                <div class="metrics-box" id="shadowMetrics">
+                    <div class="metric-row"><span>Висота дерева $H_0$ / хлопчика $h_0$:</span> <strong>3.0 м / 1.5 м (2 : 1)</strong></div>
+                    <div class="metric-row"><span>Тінь дерева $L_{	ext{дер}}$ / хлопчика $L_{	ext{хл}}$:</span> <strong id="shadowRatioText">3.33 м / 1.67 м</strong></div>
+                    <div class="metric-row"><span>Відношення тіней $L_{	ext{дер}} : L_{	ext{хл}}$:</span> <strong id="ratioCheckText" style="color:var(--success)">2.00 (зберігається!)</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sim-challenge">
+            <h4>🎯 Дослідницьке завдання №1 (перевірте на симуляції):</h4>
+            <p style="font-size:0.88rem;">Увімкніть режим <strong>«Сонце (паралельне)»</strong> та підведіть хлопчика ближче до стіни (менше 110 см), щоб його тінь заламалася і перейшла на вертикальну стіну. Чому при сонячному освітленні тінь вертикального стовбура на вертикальній стіні залишається вертикальною, а відношення довжин тіней на землі зберігається?</p>
+            <div class="radio-options">
+                <label class="radio-card"><input type="radio" name="q_sim1" value="a"> Бо сонячні промені паралельні між собою, а проекції паралельних відрізків пропорційні</label>
+                <label class="radio-card"><input type="radio" name="q_sim1" value="b"> Бо стіна завжди перпендикулярна до сонячних променів</label>
+                <label class="radio-card"><input type="radio" name="q_sim1" value="c"> Бо паралельне проекціювання зберігає реальні довжини всіх предметів</label>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="checkSim1()">Перевірити відповідь</button>
+            <div class="feedback" id="fb-sim1"></div>
+        </div>
+    </section>
+
+    <!-- БЛОК 2: СИМУЛЯЦІЯ 2 (Мал. 6.1–6.2, стор. 89–91) -->
+    <section class="section-card" id="sim2-sec">
+        <div class="section-header">
+            <div class="section-title-wrap">
+                <div class="step-num">2</div>
+                <div>
+                    <h2>Симуляція №2: 3D-лабораторія паралельного проекціювання (Мал. 6.1–6.2)</h2>
+                    <p>Обертайте каркас просторової фігури $F_0$, змінюйте напрям проектуючої прямої $l$ і спостерігайте за проекцією $F$ на площині $lpha$</p>
+                </div>
+            </div>
+            <button class="btn btn-info btn-sm" onclick="openInfoModal('sim2')">💡 Дізнайся більше</button>
+        </div>
+
+        <div class="sim-grid">
+            <div class="canvas-box">
+                <canvas id="proj3dCanvas" width="640" height="400"></canvas>
+            </div>
+            <div class="controls-panel">
+                <div>
+                    <div class="control-item" style="margin-bottom:12px;">
+                        <label>Фігура $F_0$ у просторі:</label>
+                        <div class="toggle-group">
+                            <button type="button" class="toggle-btn active" id="figCube" onclick="set3DFigure('cube')">Куб (Мал. 6.2)</button>
+                            <button type="button" class="toggle-btn" id="figTri" onclick="set3DFigure('tri')">Трикутник + медіана</button>
+                            <button type="button" class="toggle-btn" id="figCircle" onclick="set3DFigure('circle')">Коло $ightarrow$ Еліпс</button>
+                            <button type="button" class="toggle-btn" id="figSeg" onclick="set3DFigure('seg')">Відрізок $\parallel l$</button>
+                        </div>
+                    </div>
+
+                    <div class="control-item" style="margin-bottom:10px;">
+                        <label for="rotY"><span>Поворот фігури $F_0$ у просторі:</span> <span id="rotYVal">28°</span></label>
+                        <input type="range" id="rotY" min="-75" max="75" value="28" oninput="draw3DProjection()">
+                    </div>
+
+                    <div class="control-item">
+                        <label for="projShear"><span>Нахил проектуючої прямої $l$:</span> <span id="projShearVal">0.35</span></label>
+                        <input type="range" id="projShear" min="-0.75" max="0.75" step="0.05" value="0.35" oninput="draw3DProjection()">
+                    </div>
+                </div>
+
+                <div class="metrics-box" id="proj3dMetrics">
+                    <div class="metric-row"><span>Оригінал грані куба:</span> <strong>Квадрат (кути $90^\circ$, сторони рівні)</strong></div>
+                    <div class="metric-row"><span>Проекція на площину $lpha$:</span> <strong id="projShapeDesc">Паралелограм (кут $pprox 64^\circ$)</strong></div>
+                    <div class="metric-row"><span>Паралельність протилежних ребер:</span> <strong style="color:var(--success)">Зберігається!</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sim-challenge">
+            <h4>🎯 Дослідницьке завдання №2 (експеримент з 3D-каркасом):</h4>
+            <p style="font-size:0.88rem;">Перемкніть фігури в симуляції вище (особливо <strong>«Куб»</strong> та <strong>«Відрізок $\parallel l$»</strong>) і перевірте, яке з тверджень суперечить властивостям паралельного проекціювання (стор. 90–91):</p>
+            <div class="radio-options">
+                <label class="radio-card"><input type="radio" name="q_sim2" value="a"> Середина відрізка завжди проектується в середину його проекції</label>
+                <label class="radio-card"><input type="radio" name="q_sim2" value="b"> Величина прямого кута завжди зберігається при паралельному проекціюванні</label>
+                <label class="radio-card"><input type="radio" name="q_sim2" value="c"> Якщо відрізок паралельний проектуючій прямій $l$, його проекцією є точка</label>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="checkSim2()">Перевірити відповідь</button>
+            <div class="feedback" id="fb-sim2"></div>
+        </div>
+    </section>
+
+    <!-- БЛОК 3: DRAG & DROP ЗОБРАЖЕННЯ ПЛОСКИХ ФІГУР (стор. 92–95) -->
+    <section class="section-card" id="dnd-sec">
+        <div class="section-header">
+            <div class="section-title-wrap">
+                <div class="step-num">3</div>
+                <div>
+                    <h2>Тренажер Drag-and-Drop: Зображення плоских фігур у стереометрії</h2>
+                    <p>Установіть відповідність між просторовою фігурою $F_0$ та її правильним зображенням $F$ на площині (стор. 92–95)</p>
+                </div>
+            </div>
+            <button class="btn btn-info btn-sm" onclick="openInfoModal('flat')">💡 Дізнайся більше</button>
+        </div>
+
+        <div class="dnd-instruction">
+            <strong>Як виконувати:</strong> Перетягніть картку з рисунком у відповідну комірку (або на смартфоні: <strong>торкніться картки</strong>, щоб виділити її, а потім <strong>торкніться потрібної комірки</strong>).
+        </div>
+
+        <div class="draggable-pool" id="dragPool"></div>
+
+        <div class="drop-targets-grid" id="dropGrid"></div>
+
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="checkDnD()">Перевірити всі відповідності</button>
+            <button class="btn btn-outline" onclick="resetDnD()">Скинути картки</button>
+        </div>
+        <div class="feedback" id="fb-dnd"></div>
+    </section>
+
+    <!-- БЛОК 4: ЗОБРАЖЕННЯ ПРОСТОРОВИХ ФІГУР ТА ЗАДАЧІ (стор. 93–96) -->
+    <section class="section-card" id="poly-sec">
+        <div class="section-header">
+            <div class="section-title-wrap">
+                <div class="step-num">4</div>
+                <div>
+                    <h2>Зображення многогранників та розрахункові задачі</h2>
+                    <p>Правило видимих і невидимих ребер (Мал. 6.23–6.26) та властивість пропорційності відрізків</p>
+                </div>
+            </div>
+            <button class="btn btn-info btn-sm" onclick="openInfoModal('poly')">💡 Дізнайся більше</button>
+        </div>
+
+        <h3 style="font-size:1rem; margin-bottom:10px; color:var(--primary);">Частина А. Інтерактивний конструктор видимості ребер (натискайте на ребра, щоб змінити суцільну/пунктирну лінію):</h3>
+        <div class="poly-grid">
+            <!-- Тетраедр Мал. 6.23 -->
+            <div class="poly-card">
+                <h4>1. Тетраедр $DABC$ (Мал. 6.23)</h4>
+                <p>Ребро $BD$ спереду (видиме), а ребро $AC$ позаду. Зробіть невидиме ребро пунктирним!</p>
+                <svg class="poly-svg" viewBox="0 0 240 190" id="svg-tetra">
+                    <!-- видимі за замовчуванням -->
+                    <line x1="120" y1="24" x2="36" y2="122" stroke="#0f172a" stroke-width="2.6"/>
+                    <line x1="120" y1="24" x2="206" y2="128" stroke="#0f172a" stroke-width="2.6"/>
+                    <line x1="36" y1="122" x2="112" y2="164" stroke="#0f172a" stroke-width="2.6"/>
+                    <line x1="112" y1="164" x2="206" y2="128" stroke="#0f172a" stroke-width="2.6"/>
+                    <!-- інтерактивні ребра -->
+                    <line class="edge-interactive" data-poly="tetra" data-edge="BD" data-state="solid" x1="120" y1="24" x2="112" y2="164" stroke="#2563eb" stroke-width="3.2" onclick="toggleEdge(this)"/>
+                    <line class="edge-interactive" data-poly="tetra" data-edge="AC" data-state="solid" x1="36" y1="122" x2="206" y2="128" stroke="#2563eb" stroke-width="3.2" onclick="toggleEdge(this)"/>
+                    <text x="115" y="17" font-size="13" font-weight="700">D</text>
+                    <text x="20" y="126" font-size="13" font-weight="700">A</text>
+                    <text x="107" y="182" font-size="13" font-weight="700">B</text>
+                    <text x="212" y="132" font-size="13" font-weight="700">C</text>
+                </svg>
+            </div>
+
+            <!-- Куб Мал. 6.26 -->
+            <div class="poly-card">
+                <h4>2. Куб $ABCDA_1B_1C_1D_1$ (Мал. 6.26)</h4>
+                <p>Передня грань $AA_1B_1B$ — квадрат. Позначте пунктиром усі 3 невидимі ребра, що сходяться у вершині $D$!</p>
+                <svg class="poly-svg" viewBox="0 0 240 190" id="svg-cube">
+                    <!-- Передня грань (видима) -->
+                    <rect x="42" y="64" width="96" height="96" fill="none" stroke="#0f172a" stroke-width="2.5"/>
+                    <!-- Верхні та праві видимі ребра -->
+                    <line x1="42" y1="64" x2="84" y2="30" stroke="#0f172a" stroke-width="2.5"/>
+                    <line x1="138" y1="64" x2="180" y2="30" stroke="#0f172a" stroke-width="2.5"/>
+                    <line x1="138" y1="160" x2="180" y2="126" stroke="#0f172a" stroke-width="2.5"/>
+                    <line x1="84" y1="30" x2="180" y2="30" stroke="#0f172a" stroke-width="2.5"/>
+                    <line x1="180" y1="30" x2="180" y2="126" stroke="#0f172a" stroke-width="2.5"/>
+                    <!-- Інтерактивні ребра від D(84,126) -->
+                    <line class="edge-interactive" data-poly="cube" data-edge="DD1" data-state="solid" x1="84" y1="30" x2="84" y2="126" stroke="#2563eb" stroke-width="3.2" onclick="toggleEdge(this)"/>
+                    <line class="edge-interactive" data-poly="cube" data-edge="AD" data-state="solid" x1="42" y1="160" x2="84" y2="126" stroke="#2563eb" stroke-width="3.2" onclick="toggleEdge(this)"/>
+                    <line class="edge-interactive" data-poly="cube" data-edge="DC" data-state="solid" x1="84" y1="126" x2="180" y2="126" stroke="#2563eb" stroke-width="3.2" onclick="toggleEdge(this)"/>
+                    <text x="28" y="168" font-size="12" font-weight="700">A</text>
+                    <text x="142" y="168" font-size="12" font-weight="700">B</text>
+                    <text x="184" y="130" font-size="12" font-weight="700">C</text>
+                    <text x="72" y="121" font-size="12" font-weight="700">D</text>
+                    <text x="24" y="65" font-size="12" font-weight="700">A₁</text>
+                    <text x="142" y="65" font-size="12" font-weight="700">B₁</text>
+                    <text x="184" y="32" font-size="12" font-weight="700">C₁</text>
+                    <text x="72" y="25" font-size="12" font-weight="700">D₁</text>
+                </svg>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="checkPolyEdges()">Перевірити видимість ребер</button>
+        <div class="feedback" id="fb-poly" style="margin-bottom:20px;"></div>
+
+        <h3 style="font-size:1rem; margin-bottom:10px; color:var(--primary);">Частина Б. Практичні задачі за підручником (властивість 5, стор. 91 та 94):</h3>
+        <div class="calc-problems">
+            <div class="problem-box">
+                <h4>Задача 1 (Мал. 6.8, стор. 91)</h4>
+                <p>Точка $C_0$ належить відрізку $A_0B_0$, причому $A_0C_0 = 6	ext{ см}$, $C_0B_0 = 9	ext{ см}$. Точки $A, C, B$ — паралельні проекції точок $A_0, C_0, B_0$ на площину $lpha$. Знайдіть довжину проекції $CB$, якщо $AC = 4	ext{ см}$.</p>
+                <div class="inline-answer">
+                    <input type="number" id="ans_p1" placeholder="см" step="0.1">
+                    <button class="btn btn-primary btn-sm" onclick="checkProblem1()">Перевірити</button>
+                </div>
+                <div class="feedback" id="fb-p1"></div>
+            </div>
+
+            <div class="problem-box">
+                <h4>Задача 2 (Трапеція, Мал. 6.15, стор. 94)</h4>
+                <p>Чотирикутник $ABCD$ є паралельною проекцією трапеції $A_0B_0C_0D_0$ з основами $A_0D_0 = 15	ext{ см}$ та $B_0C_0 = 5	ext{ см}$. Знайдіть меншу основу $BC$ зображення трапеції, якщо більша основа $AD = 9	ext{ см}$.</p>
+                <div class="inline-answer">
+                    <input type="number" id="ans_p2" placeholder="см" step="0.1">
+                    <button class="btn btn-primary btn-sm" onclick="checkProblem2()">Перевірити</button>
+                </div>
+                <div class="feedback" id="fb-p2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 5: ЗВІТ ТА ЕКСПОРТ В PDF -->
+    <section class="section-card report-box" id="report-sec">
+        <div class="section-header">
+            <div class="section-title-wrap">
+                <div class="step-num" style="background:var(--accent);">PDF</div>
+                <div>
+                    <h2>Підсумковий звіт учня та завантаження PDF</h2>
+                    <p>Фіксація всіх спроб, проміжних результатів, журналу відповідей та підсумкової оцінки</p>
+                </div>
+            </div>
+            <button class="btn btn-accent" onclick="downloadPDFReport()">📥 Завантажити звіт у PDF</button>
+        </div>
+
+        <!-- Контейнер, що рендериться у PDF -->
+        <div id="pdf-printable-area" style="background:#ffffff; padding:20px; border-radius:12px; border:1px solid #cbd5e1;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; border-bottom:2px solid #1e3a8a; padding-bottom:12px; margin-bottom:16px;">
+                <div>
+                    <h3 style="color:#1e3a8a; font-size:1.15rem; margin-bottom:4px;">ЗВІТ ПРО ВИКОНАННЯ ІНТЕРАКТИВНОЇ РОБОТИ</h3>
+                    <p style="font-size:0.85rem; color:#475569;">Тема: «Паралельне проекціювання, його властивості. Зображення фігур у стереометрії» (10 клас, О.С. Істер)</p>
+                </div>
+                <div style="text-align:right; font-size:0.85rem;">
+                    <div><strong>Учень:</strong> <span id="repName">Не вказано</span></div>
+                    <div><strong>Клас:</strong> <span id="repClass">10-А</span></div>
+                    <div><strong>Дата:</strong> <span id="repDate"></span></div>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:10px; margin-bottom:16px;">
+                <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+                    <div style="font-size:0.75rem; color:#64748b;">Виконано блоків</div>
+                    <div style="font-size:1.1rem; font-weight:800; color:#0f172a;" id="repBlocks">0 з 6</div>
+                </div>
+                <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #e2e8f0;">
+                    <div style="font-size:0.75rem; color:#64748b;">Усього зафіксовано спроб</div>
+                    <div style="font-size:1.1rem; font-weight:800; color:#0f172a;" id="repAttempts">0</div>
+                </div>
+                <div style="background:#f0fdfa; padding:10px; border-radius:8px; border:1px solid #99f6e4;">
+                    <div style="font-size:0.75rem; color:#0f766e;">Підсумкова оцінка (12-б.)</div>
+                    <div style="font-size:1.1rem; font-weight:800; color:#0f766e;" id="repScore">0 / 12 балів</div>
+                </div>
+            </div>
+
+            <h4 style="font-size:0.92rem; margin-bottom:8px; color:#1e3a8a;">Проміжні результати за завданнями:</h4>
+            <div class="attempt-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Завдання</th>
+                            <th>Спроб</th>
+                            <th>Статус</th>
+                            <th>Бали</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryTableBody">
+                        <tr><td>1. Симуляція: Тінь і промені (Мал. 6.3)</td><td>0</td><td>Не виконано</td><td>0 / 2</td></tr>
+                        <tr><td>2. Симуляція: 3D-проекціювання (Мал. 6.1–6.2)</td><td>0</td><td>Не виконано</td><td>0 / 2</td></tr>
+                        <tr><td>3. Drag & Drop: Зображення плоских фігур</td><td>0</td><td>Не виконано</td><td>0 / 3</td></tr>
+                        <tr><td>4. Видимі та невидимі ребра многогранників</td><td>0</td><td>Не виконано</td><td>0 / 2</td></tr>
+                        <tr><td>5. Задача 1 (пропорційність відрізків, Мал. 6.8)</td><td>0</td><td>Не виконано</td><td>0 / 1.5</td></tr>
+                        <tr><td>6. Задача 2 (проекція трапеції, Мал. 6.15)</td><td>0</td><td>Не виконано</td><td>0 / 1.5</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 style="font-size:0.92rem; margin:14px 0 8px; color:#1e3a8a;">Хронологічний журнал усіх спроб учня:</h4>
+            <div class="attempt-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Час</th>
+                            <th>№ спроби</th>
+                            <th>Блок / Завдання</th>
+                            <th>Відповідь учня</th>
+                            <th>Результат</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attemptLogBody">
+                        <tr><td colspan="5" style="text-align:center; color:#64748b;">Поки що немає зафіксованих спроб. Виконайте інтерактивні завдання вище.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- МОДАЛЬНЕ ВІКНО "ДІЗНАЙСЯ БІЛЬШЕ" -->
+<div class="modal-backdrop" id="infoModal" onclick="if(event.target===this) closeInfoModal()">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3 id="modalTitle">Довідка</h3>
+            <button class="close-modal" onclick="closeInfoModal()" aria-label="Закрити">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // СТАН ДОДАТКУ ТА ЖУРНАЛ СПРОБ УЧНЯ
+    // ==========================================
+    const state = {
+        attemptsCount: 0,
+        log: [],
+        tasks: {
+            sim1: { name: "1. Симуляція: Тінь і промені (Мал. 6.3)", attempts: 0, done: false, score: 0, max: 2 },
+            sim2: { name: "2. Симуляція: 3D-проекціювання (Мал. 6.1–6.2)", attempts: 0, done: false, score: 0, max: 2 },
+            dnd:  { name: "3. Drag & Drop: Зображення плоских фігур", attempts: 0, done: false, score: 0, max: 3 },
+            poly: { name: "4. Видимі та невидимі ребра многогранників", attempts: 0, done: false, score: 0, max: 2 },
+            p1:   { name: "5. Задача 1 (пропорційність відрізків)", attempts: 0, done: false, score: 0, max: 1.5 },
+            p2:   { name: "6. Задача 2 (проекція трапеції)", attempts: 0, done: false, score: 0, max: 1.5 }
+        }
+    };
+
+    document.getElementById('repDate').textContent = new Date().toLocaleDateString('uk-UA');
+
+    function updateReportHeader() {
+        const name = document.getElementById('studentName').value.trim();
+        const cls = document.getElementById('studentClass').value.trim();
+        document.getElementById('repName').textContent = name || "Не вказано";
+        document.getElementById('repClass').textContent = cls || "10 клас";
+    }
+
+    function recordAttempt(taskKey, userAnswerText, isCorrect, earnedScore) {
+        state.attemptsCount++;
+        const task = state.tasks[taskKey];
+        task.attempts++;
+        if (isCorrect) {
+            task.done = true;
+            task.score = task.max;
+        } else if (earnedScore !== undefined && earnedScore > task.score && !task.done) {
+            task.score = earnedScore;
+        }
+
+        const now = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        state.log.push({
+            time: now,
+            num: state.attemptsCount,
+            taskName: task.name,
+            answer: userAnswerText,
+            ok: isCorrect
+        });
+
+        refreshDashboard();
+    }
+
+    function refreshDashboard() {
+        let doneCount = 0;
+        let totalScore = 0;
+        const tbody = document.getElementById('summaryTableBody');
+        tbody.innerHTML = '';
+
+        Object.entries(state.tasks).forEach(([key, t]) => {
+            if (t.done) doneCount++;
+            totalScore += t.score;
+
+            const navChip = document.getElementById('nav-' + key);
+            if (navChip && t.done) navChip.classList.add('done');
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${t.name}</td>
+                <td>${t.attempts}</td>
+                <td>${t.done ? '<span class="tag-ok">Зараховано</span>' : (t.attempts > 0 ? '<span class="tag-err">В процесі</span>' : 'Не виконано')}</td>
+                <td><strong>${t.score} / ${t.max}</strong></td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        const rounded12 = Math.round(totalScore * 10) / 10;
+        document.getElementById('totalAttempts').textContent = state.attemptsCount;
+        document.getElementById('tasksDone').textContent = `${doneCount} / 6`;
+        document.getElementById('grade12').textContent = `${rounded12} / 12`;
+
+        document.getElementById('repBlocks').textContent = `${doneCount} з 6`;
+        document.getElementById('repAttempts').textContent = state.attemptsCount;
+        document.getElementById('repScore').textContent = `${rounded12} / 12 балів`;
+
+        const logBody = document.getElementById('attemptLogBody');
+        logBody.innerHTML = '';
+        state.log.slice().reverse().forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.time}</td>
+                <td>#${item.num}</td>
+                <td>${item.taskName}</td>
+                <td>${item.answer}</td>
+                <td>${item.ok ? '<span class="tag-ok">Правильно</span>' : '<span class="tag-err">Помилка</span>'}</td>
+            `;
+            logBody.appendChild(tr);
+        });
+    }
+
+    // ==========================================
+    // МОДАЛЬНІ ВІКНА "ДІЗНАЙСЯ БІЛЬШЕ" (За підручником Істера)
+    // ==========================================
+    const infoContent = {
+        history: {
+            title: "Історична довідка: Нарисна геометрія та Гаспар Монж (стор. 97)",
+            html: `
+                <p><strong>Нарисна геометрія</strong> — розділ геометрії, у якому геометричні властивості предметів вивчають за допомогою зображення їх на площині.</p>
+                <div class="theorem-callout">
+                    Творцем нарисної геометрії вважають французького вченого, інженера та політичного діяча <strong>Гаспара Монжа (1746–1818)</strong>. Його головна наукова праця <em>«Нарисна геометрія»</em> вийшла друком у <strong>1799 році</strong>.
+                </div>
+                <p>Ще до появи праці Монжа правилами проекціювання користувалися під час зведення єгипетських пірамід та храму Соломона в Єрусалимі (близько 3000 років тому), де камені обтісували на рудниках за готовими кресленнями.</p>
+                <p>У галузі теорії зображень також працювали видатні митці й математики: <strong>Леонардо да Вінчі, Альбрехт Дюрер, Блез Паскаль</strong>, а також інженери І.П. Кулібін та І.І. Ползунов.</p>
+            `
+        },
+        sim1: {
+            title: "Поняття паралельного проекціювання (стор. 89–90)",
+            html: `
+                <p>Нехай $\alpha$ — деяка площина (<strong>площина проекції</strong>), а $l$ — пряма, яка перетинає цю площину (<strong>проектуюча пряма</strong>).</p>
+                <div class="theorem-callout">
+                    Щоб побудувати паралельну проекцію точки $A_0$ на площину $\alpha$, через точку $A_0$ проводять пряму, паралельну прямій $l$. Точка $A$ перетину цієї прямої з площиною $\alpha$ і є <strong>паралельною проекцією (зображенням)</strong> точки $A_0$.
+                </div>
+                <p><strong>Чому сонячна тінь — прототип паралельного проекціювання (Мал. 6.3)?</strong></p>
+                <ul>
+                    <li>Сонце розташоване на величезній відстані від Землі, тому сонячні промені можна вважати паралельними між собою (напрям прямої $l$).</li>
+                    <li>На відміну від близького ліхтарика (центральне проекціювання, де промені виходять з однієї точки), сонячні тіні вертикальних предметів на горизонтальній землі зберігають пропорційність довжин.</li>
+                </ul>
+            `
+        },
+        sim2: {
+            title: "Основні властивості паралельного проекціювання (стор. 90–91)",
+            html: `
+                <p>За умови, що відрізки та прямі, які проектуються, <strong>не паралельні</strong> проектуючій прямій $l$:</p>
+                <ul>
+                    <li><strong>1.</strong> Проекцією прямої є пряма (Мал. 6.4).</li>
+                    <li><strong>2.</strong> Проекцією відрізка є відрізок (Мал. 6.5). <em>Примітка: якщо відрізок паралельний $l$, його проекцією є точка.</em></li>
+                    <li><strong>3.</strong> Проекції паралельних відрізків — паралельні відрізки (Мал. 6.6) або відрізки, що належать одній прямій (Мал. 6.7).</li>
+                    <li><strong>4.</strong> Проекції паралельних прямих паралельні або збігаються.</li>
+                    <li><strong>5.</strong> Проекції паралельних відрізків або відрізків, що лежать на одній прямій, <strong>пропорційні самим відрізкам</strong> (Мал. 6.8).</li>
+                </ul>
+                <div class="theorem-callout">
+                    <strong>Наслідок:</strong> Середина відрізка проектується в середину його проекції. Проте ані величина кута, ані довжини відрізків при паралельному проекціюванні не обов'язково зберігаються!
+                </div>
+            `
+        },
+        flat: {
+            title: "Правила зображення плоских фігур у стереометрії (стор. 92–95)",
+            html: `
+                <ul>
+                    <li><strong>Трикутник:</strong> зображенням кожного трикутника є <em>трикутник довільного виду</em>. Проекцією медіани є медіана, середньої лінії — середня лінія. Для довільного трикутника бісектриса й висота зображуються довільним відрізком із вершини до протилежної сторони (але в рівнобедреному трикутнику висота/бісектриса до основи збігається з медіаною, тому зображується медіаною!).</li>
+                    <li><strong>Паралелограм, прямокутник, ромб, квадрат:</strong> зображуються <em>паралелограмом довільного виду</em>.</li>
+                    <li><strong>Трапеція:</strong> зображується <em>трапецією</em> зі збереженням відношення основ: $\frac{A_0D_0}{B_0C_0} = \frac{AD}{BC}$.</li>
+                    <li><strong>Правильний шестикутник:</strong> будується з двох симетричних відносно центра $Q$ паралелограмів $FEDQ$ і $CBAQ$ (Мал. 6.19).</li>
+                    <li><strong>Коло:</strong> паралельну проекцію кола називають <strong>еліпсом</strong>, а проекцію центра кола $Q_0$ — центром еліпса $Q$ (Мал. 6.20).</li>
+                </ul>
+            `
+        },
+        poly: {
+            title: "Зображення просторових фігур (стор. 95–96)",
+            html: `
+                <p>Зображення многогранника складають із зображень його ребер:</p>
+                <ul>
+                    <li><strong>Видимі ребра</strong> (належать освітленій з боку спостерігача частині) зображують <strong>суцільною лінією</strong>.</li>
+                    <li><strong>Невидимі ребра</strong> (належать неосвітленій частині) зображують <strong>пунктиром</strong>.</li>
+                    <li><strong>Тетраедр (Мал. 6.23):</strong> основа $ABC$ зображується трикутником із невидимим заднім ребром $AC$ (пунктир), а ребро $BD$ спереду — суцільне.</li>
+                    <li><strong>Куб і прямокутний паралелепіпед (Мал. 6.25–6.26):</strong> усі 6 граней проектуються в паралелограми. Передню грань $AA_1B_1B$ куба прийнято зображувати <strong>квадратом</strong>, а прямокутного паралелепіпеда — <strong>прямокутником</strong>.</li>
+                </ul>
+            `
+        }
+    };
+
+    function openInfoModal(key) {
+        const data = infoContent[key];
+        document.getElementById('modalTitle').textContent = data.title;
+        document.getElementById('modalBody').innerHTML = data.html;
+        document.getElementById('infoModal').classList.add('open');
+    }
+
+    function closeInfoModal() {
+        document.getElementById('infoModal').classList.remove('open');
+    }
+
+    // ==========================================
+    // СИМУЛЯЦІЯ 1: ТІНЬ ДЕРЕВА І ХЛОПЧИКА (Мал. 6.3)
+    // ==========================================
+    let lightMode = 'sun';
+
+    function setLightMode(mode) {
+        lightMode = mode;
+        document.getElementById('modeSun').classList.toggle('active', mode === 'sun');
+        document.getElementById('modeLamp').classList.toggle('active', mode === 'lamp');
+        drawShadowScene();
+    }
+
+    function drawShadowScene() {
+        const canvas = document.getElementById('shadowCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width;
+        const H = canvas.height;
+
+        const angleDeg = parseFloat(document.getElementById('rayAngle').value);
+        const boyDistPx = parseFloat(document.getElementById('boyDist').value);
+
+        document.getElementById('rayAngleVal').textContent = angleDeg + '°';
+        document.getElementById('boyDistVal').textContent = boyDistPx + ' см';
+
+        ctx.clearRect(0, 0, W, H);
+
+        // Фон: небо, вертикальна стіна (ліворуч) та горизонтальна земля (внизу)
+        const wallX = 115;
+        const groundY = 315;
+
+        // Небо / простір
+        const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+        skyGrad.addColorStop(0, lightMode === 'sun' ? '#e0f2fe' : '#1e293b');
+        skyGrad.addColorStop(1, lightMode === 'sun' ? '#f8fafc' : '#334155');
+        ctx.fillStyle = skyGrad;
+        ctx.fillRect(wallX, 0, W - wallX, groundY);
+
+        // Земля (площина проекції альфа)
+        ctx.fillStyle = lightMode === 'sun' ? '#e2e8f0' : '#475569';
+        ctx.fillRect(0, groundY, W, H - groundY);
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(wallX, groundY);
+        ctx.lineTo(W, groundY);
+        ctx.stroke();
+
+        // Стіна (вертикальна площина бета)
+        ctx.fillStyle = lightMode === 'sun' ? '#fed7aa' : '#9a3412';
+        ctx.fillRect(0, 0, wallX, groundY);
+        // Перспективний зріз стіни внизу
+        ctx.beginPath();
+        ctx.moveTo(wallX, groundY);
+        ctx.lineTo(0, H);
+        ctx.strokeStyle = '#7c2d12';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Підписи площин
+        ctx.fillStyle = lightMode === 'sun' ? '#334155' : '#f8fafc';
+        ctx.font = 'bold 13px Inter, sans-serif';
+        ctx.fillText('Площина землі α', W - 140, groundY + 24);
+        ctx.fillText('Стіна β', 28, 30);
+
+        // Координати дерева та хлопчика
+        const treeX = 470;
+        const treeH = 150; // відповідає 3.0 м (50px = 1м)
+        const boyX = wallX + boyDistPx;
+        const boyH = 75;   // відповідає 1.5 м
+
+        const rad = angleDeg * Math.PI / 180;
+        const tanA = Math.tan(rad);
+
+        // Джерело світла (Сонце або Ліхтар)
+        const lampX = 585;
+        const lampY = 55;
+        if (lightMode === 'sun') {
+            ctx.fillStyle = '#f59e0b';
+            ctx.beginPath();
+            ctx.arc(580, 52, 22, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#b45309';
+            ctx.font = 'bold 12px Inter, sans-serif';
+            ctx.fillText('Сонце (l ∥ l₁)', 525, 88);
+        } else {
+            ctx.fillStyle = '#fde047';
+            ctx.beginPath();
+            ctx.arc(lampX, lampY, 14, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#ca8a04';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = '#fef08a';
+            ctx.font = 'bold 12px Inter, sans-serif';
+            ctx.fillText('Ліхтар S (центр)', 505, 85);
+        }
+
+        // Розрахунок тіні (проекції верхівки)
+        function calcShadow(objX, objH) {
+            if (lightMode === 'sun') {
+                const shadowLen = objH / tanA;
+                const endX = objX - shadowLen;
+                if (endX >= wallX) {
+                    return { onWall: false, groundEnd: endX, wallHeight: 0, totalGroundProj: shadowLen };
+                } else {
+                    const distToWall = objX - wallX;
+                    const wallH = (shadowLen - distToWall) * tanA;
+                    return { onWall: true, groundEnd: wallX, wallHeight: wallH, totalGroundProj: shadowLen };
+                }
+            } else {
+                // Центральне проекціювання з точки (lampX, lampY)
+                const topY = groundY - objH;
+                const slope = (topY - lampY) / (objX - lampX); // > 0 бо objX < lampX і topY > lampY
+                const endX = objX + (groundY - topY) / slope;
+                if (endX >= wallX) {
+                    return { onWall: false, groundEnd: endX, wallHeight: 0, totalGroundProj: objX - endX };
+                } else {
+                    const yAtWall = topY + slope * (wallX - objX);
+                    return { onWall: true, groundEnd: wallX, wallHeight: groundY - yAtWall, totalGroundProj: objX - endX };
+                }
+            }
+        }
+
+        const treeSh = calcShadow(treeX, treeH);
+        const boySh = calcShadow(boyX, boyH);
+
+        // Малюємо тіні (темні смуги)
+        function renderShadow(objX, sh, width) {
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.55)';
+            ctx.beginPath();
+            ctx.ellipse((objX + sh.groundEnd) / 2, groundY + 6, Math.abs(objX - sh.groundEnd) / 2, width, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (sh.onWall && sh.wallHeight > 0) {
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.52)';
+                ctx.fillRect(wallX - 18, groundY - sh.wallHeight, 18, sh.wallHeight);
+            }
+        }
+
+        renderShadow(treeX, treeSh, 9);
+        renderShadow(boyX, boySh, 6);
+
+        // Малюємо дерево (праворуч)
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(treeX - 6, groundY - 65, 12, 65);
+        ctx.fillStyle = '#15803d';
+        ctx.beginPath();
+        ctx.arc(treeX, groundY - 95, 42, 0, Math.PI * 2);
+        ctx.arc(treeX - 22, groundY - 78, 28, 0, Math.PI * 2);
+        ctx.arc(treeX + 22, groundY - 78, 28, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Малюємо хлопчика
+        ctx.strokeStyle = '#1d4ed8';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        // ноги
+        ctx.moveTo(boyX - 7, groundY);
+        ctx.lineTo(boyX, groundY - 28);
+        ctx.lineTo(boyX + 7, groundY);
+        // тулуб
+        ctx.moveTo(boyX, groundY - 28);
+        ctx.lineTo(boyX, groundY - 56);
+        // руки
+        ctx.moveTo(boyX - 12, groundY - 42);
+        ctx.lineTo(boyX + 12, groundY - 42);
+        ctx.stroke();
+        // голова
+        ctx.fillStyle = '#fbbf24';
+        ctx.beginPath();
+        ctx.arc(boyX, groundY - 66, 9, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Проектуючі промені (пунктирні лінії)
+        ctx.setLineDash([6, 5]);
+        ctx.strokeStyle = lightMode === 'sun' ? '#d97706' : '#fef08a';
+        ctx.lineWidth = 2;
+
+        function drawRay(objX, objH, sh) {
+            const topY = groundY - objH;
+            const targetX = sh.onWall ? wallX : sh.groundEnd;
+            const targetY = sh.onWall ? (groundY - sh.wallHeight) : groundY;
+            ctx.beginPath();
+            if (lightMode === 'sun') {
+                ctx.moveTo(objX + 85, topY - 85 * tanA);
+                ctx.lineTo(targetX, targetY);
+            } else {
+                ctx.moveTo(lampX, lampY);
+                ctx.lineTo(targetX, targetY);
+            }
+            ctx.stroke();
+        }
+
+        drawRay(treeX, treeH, treeSh);
+        drawRay(boyX, boyH, boySh);
+        ctx.setLineDash([]);
+
+        // Оновлення метрик
+        const tLenM = (treeSh.totalGroundProj / 50).toFixed(2);
+        const bLenM = (boySh.totalGroundProj / 50).toFixed(2);
+        const ratio = (treeSh.totalGroundProj / boySh.totalGroundProj).toFixed(2);
+
+        document.getElementById('shadowRatioText').textContent = `${tLenM} м / ${bLenM} м`;
+        const ratioEl = document.getElementById('ratioCheckText');
+        if (lightMode === 'sun') {
+            ratioEl.textContent = `${ratio} (дорівнює 2.00 — пропорційність!)`;
+            ratioEl.style.color = 'var(--success)';
+        } else {
+            ratioEl.textContent = `${ratio} (≠ 2.00 — центральне проекціювання!)`;
+            ratioEl.style.color = 'var(--danger)';
+        }
+    }
+
+    function checkSim1() {
+        const selected = document.querySelector('input[name="q_sim1"]:checked');
+        const fb = document.getElementById('fb-sim1');
+        if (!selected) {
+            fb.className = 'feedback show err';
+            fb.textContent = 'Будь ласка, оберіть один із варіантів відповіді.';
+            return;
+        }
+        const ok = selected.value === 'a';
+        recordAttempt('sim1', `Варіант ${selected.value.toUpperCase()}`, ok);
+        if (ok) {
+            fb.className = 'feedback show ok';
+            fb.textContent = '✅ Правильно! При сонячному освітленні промені паралельні (властивості 3 та 5, стор. 90): проекції паралельних відрізків паралельні та пропорційні самим відрізкам.';
+        } else {
+            fb.className = 'feedback show err';
+            fb.textContent = '❌ Не зовсім так. Пригадайте властивості 3 і 5 паралельного проекціювання (стор. 90): довжини відрізків не зберігаються, проте зберігається їхня пропорційність і паралельність.';
+        }
+    }
+
+    // ==========================================
+    // СИМУЛЯЦІЯ 2: 3D-ПРОЕКЦІЮВАННЯ НА ПЛОЩИНУ (Мал. 6.1–6.2)
+    // ==========================================
+    let current3DFig = 'cube';
+
+    function set3DFigure(fig) {
+        current3DFig = fig;
+        ['figCube', 'figTri', 'figCircle', 'figSeg'].forEach(id => {
+            document.getElementById(id).classList.remove('active');
+        });
+        const map = { cube: 'figCube', tri: 'figTri', circle: 'figCircle', seg: 'figSeg' };
+        document.getElementById(map[fig]).classList.add('active');
+        draw3DProjection();
+    }
+
+    function draw3DProjection() {
+        const canvas = document.getElementById('proj3dCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width;
+        const H = canvas.height;
+
+        const rotDeg = parseFloat(document.getElementById('rotY').value);
+        const shear = parseFloat(document.getElementById('projShear').value);
+        document.getElementById('rotYVal').textContent = rotDeg + '°';
+        document.getElementById('projShearVal').textContent = shear.toFixed(2);
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, W, H);
+
+        // Площина проекції альфа (паралелограм внизу)
+        const planeY = 305;
+        ctx.fillStyle = '#e0f2fe';
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(95, planeY - 45);
+        ctx.lineTo(565, planeY - 45);
+        ctx.lineTo(505, planeY + 65);
+        ctx.lineTo(35, planeY + 65);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#0369a1';
+        ctx.font = 'bold 16px Inter, sans-serif';
+        ctx.fillText('α', 55, planeY + 52);
+
+        // Проектуюча пряма l зліва (як на Мал. 6.1)
+        const lTopX = 95 + shear * 70;
+        const lTopY = 55;
+        const lBotX = 95;
+        const lBotY = planeY + 10;
+
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(lTopX, lTopY);
+        ctx.lineTo(lBotX, lBotY);
+        ctx.stroke();
+
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(lBotX, lBotY);
+        ctx.lineTo(lBotX - shear * 30, lBotY + 45);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(lBotX, lBotY, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.font = 'italic bold 16px Inter, sans-serif';
+        ctx.fillText('l', lTopX - 16, lTopY + 16);
+
+        // Функція перетворення 3D (x, y, z) -> 2D екрану і проекція на площину y = 0
+        const radY = rotDeg * Math.PI / 180;
+        const cosY = Math.cos(radY);
+        const sinY = Math.sin(radY);
+
+        // y_3d - висота над площиною альфа
+        function toScreen(x, y, z) {
+            // обертання навколо осі Y
+            const rx = x * cosY - z * sinY;
+            const rz = x * sinY + z * cosY;
+            const sx = 330 + rx - rz * 0.42;
+            const sy = planeY + 10 - y + rz * 0.28;
+            return { x: sx, y: sy };
+        }
+
+        // Паралельна проекція точки (x, y, z) вздовж напряму l = (-shear, -1, 0) на площину y = 0
+        function projectToAlpha(x, y, z) {
+            const px = x - y * shear * 1.1;
+            const pz = z;
+            return toScreen(px, 0, pz);
+        }
+
+        const metricsBox = document.getElementById('proj3dMetrics');
+
+        if (current3DFig === 'cube') {
+            const s = 44;
+            const y0 = 145;
+            const verts = [
+                [-s, y0, -s], [s, y0, -s], [s, y0, s], [-s, y0, s],
+                [-s, y0 + 2*s, -s], [s, y0 + 2*s, -s], [s, y0 + 2*s, s], [-s, y0 + 2*s, s]
+            ];
+            const edges = [
+                [0,1],[1,2],[2,3],[3,0],
+                [4,5],[5,6],[6,7],[7,4],
+                [0,4],[1,5],[2,6],[3,7]
+            ];
+
+            const topPts = verts.map(v => toScreen(v[0], v[1], v[2]));
+            const botPts = verts.map(v => projectToAlpha(v[0], v[1], v[2]));
+
+            // Проектуючі промені від нижньої грані
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = 'rgba(37, 99, 235, 0.45)';
+            ctx.lineWidth = 1.4;
+            [0, 1, 2, 3].forEach(i => {
+                ctx.beginPath();
+                ctx.moveTo(topPts[i].x, topPts[i].y);
+                ctx.lineTo(botPts[i].x, botPts[i].y);
+                ctx.stroke();
+            });
+            ctx.setLineDash([]);
+
+            // Проекція на альфа
+            ctx.strokeStyle = '#dc2626';
+            ctx.lineWidth = 2.2;
+            edges.forEach(([a, b]) => {
+                ctx.beginPath();
+                ctx.moveTo(botPts[a].x, botPts[a].y);
+                ctx.lineTo(botPts[b].x, botPts[b].y);
+                ctx.stroke();
+            });
+
+            // Оригінал куба F0
+            ctx.strokeStyle = '#1e3a8a';
+            ctx.lineWidth = 2.4;
+            edges.forEach(([a, b]) => {
+                ctx.beginPath();
+                ctx.moveTo(topPts[a].x, topPts[a].y);
+                ctx.lineTo(topPts[b].x, topPts[b].y);
+                ctx.stroke();
+            });
+
+            ctx.fillStyle = '#1e3a8a';
+            ctx.font = 'bold 14px Inter, sans-serif';
+            ctx.fillText('Куб F₀', topPts[5].x + 10, topPts[5].y);
+            ctx.fillStyle = '#dc2626';
+            ctx.fillText('Проекція F', botPts[1].x + 12, botPts[1].y + 8);
+
+            // Обчислюємо кут на проекції
+            const v1 = { x: botPts[1].x - botPts[0].x, y: botPts[1].y - botPts[0].y };
+            const v2 = { x: botPts[3].x - botPts[0].x, y: botPts[3].y - botPts[0].y };
+            const dot = v1.x * v2.x + v1.y * v2.y;
+            const ang = Math.round(Math.acos(dot / (Math.hypot(v1.x, v1.y) * Math.hypot(v2.x, v2.y))) * 180 / Math.PI);
+
+            metricsBox.innerHTML = `
+                <div class="metric-row"><span>Оригінал грані куба $F_0$:</span> <strong>Квадрат (усі кути $90^\circ$)</strong></div>
+                <div class="metric-row"><span>Грань на проекції $F$:</span> <strong>Паралелограм (кут $\approx ${ang}^\circ$)</strong></div>
+                <div class="metric-row"><span>Висновок (стор. 91):</span> <strong style="color:var(--primary)">Кути й довжини не зберігаються</strong></div>
+            `;
+        } else if (current3DFig === 'tri') {
+            const A0 = [-75, 165, -35];
+            const B0 = [75, 165, -35];
+            const C0 = [0, 225, 55];
+            const M0 = [(A0[0]+B0[0])/2, (A0[1]+B0[1])/2, (A0[2]+B0[2])/2]; // середина A0B0
+
+            const pA0 = toScreen(...A0), pB0 = toScreen(...B0), pC0 = toScreen(...C0), pM0 = toScreen(...M0);
+            const pA = projectToAlpha(...A0), pB = projectToAlpha(...B0), pC = projectToAlpha(...C0), pM = projectToAlpha(...M0);
+
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = 'rgba(37, 99, 235, 0.5)';
+            [[pA0,pA],[pB0,pB],[pC0,pC],[pM0,pM]].forEach(([u,v]) => {
+                ctx.beginPath(); ctx.moveTo(u.x, u.y); ctx.lineTo(v.x, v.y); ctx.stroke();
+            });
+            ctx.setLineDash([]);
+
+            // Трикутник F0 і медіана C0M0
+            ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 2.5;
+            ctx.beginPath(); ctx.moveTo(pA0.x, pA0.y); ctx.lineTo(pB0.x, pB0.y); ctx.lineTo(pC0.x, pC0.y); ctx.closePath(); ctx.stroke();
+            ctx.strokeStyle = '#0d9488'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(pC0.x, pC0.y); ctx.lineTo(pM0.x, pM0.y); ctx.stroke();
+
+            // Проекція ABC і медіана CM
+            ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 2.5;
+            ctx.beginPath(); ctx.moveTo(pA.x, pA.y); ctx.lineTo(pB.x, pB.y); ctx.lineTo(pC.x, pC.y); ctx.closePath(); ctx.stroke();
+            ctx.strokeStyle = '#0d9488'; ctx.lineWidth = 2.2;
+            ctx.beginPath(); ctx.moveTo(pC.x, pC.y); ctx.lineTo(pM.x, pM.y); ctx.stroke();
+
+            ctx.fillStyle = '#0f172a'; ctx.font = 'bold 12px Inter';
+            ctx.fillText('A₀', pA0.x-16, pA0.y); ctx.fillText('B₀', pB0.x+6, pB0.y); ctx.fillText('C₀', pC0.x, pC0.y-8); ctx.fillText('M₀', pM0.x, pM0.y+14);
+            ctx.fillText('A', pA.x-14, pA.y+4); ctx.fillText('B', pB.x+6, pB.y+4); ctx.fillText('C', pC.x, pC.y-8); ctx.fillText('M', pM.x, pM.y+15);
+
+            metricsBox.innerHTML = `
+                <div class="metric-row"><span>Елемент $C_0M_0$ у $\triangle A_0B_0C_0$:</span> <strong>Медіана ($A_0M_0 = M_0B_0$)</strong></div>
+                <div class="metric-row"><span>Проекція $CM$ у $\triangle ABC$:</span> <strong>Медіана ($AM = MB$)</strong></div>
+                <div class="metric-row"><span>Наслідок властивості 5:</span> <strong style="color:var(--success)">Середина проектується в середину!</strong></div>
+            `;
+        } else if (current3DFig === 'circle') {
+            const R = 58;
+            const y0 = 185;
+            const pts0 = [], ptsP = [];
+            for (let i = 0; i <= 48; i++) {
+                const a = (i / 48) * Math.PI * 2;
+                const x = R * Math.cos(a);
+                const z = R * Math.sin(a);
+                pts0.push(toScreen(x, y0, z));
+                ptsP.push(projectToAlpha(x, y0, z));
+            }
+            const c0 = toScreen(0, y0, 0);
+            const cP = projectToAlpha(0, y0, 0);
+
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = 'rgba(37, 99, 235, 0.5)';
+            [0, 12, 24, 36].forEach(idx => {
+                ctx.beginPath(); ctx.moveTo(pts0[idx].x, pts0[idx].y); ctx.lineTo(ptsP[idx].x, ptsP[idx].y); ctx.stroke();
+            });
+            ctx.beginPath(); ctx.moveTo(c0.x, c0.y); ctx.lineTo(cP.x, cP.y); ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.strokeStyle = '#0284c7'; ctx.lineWidth = 2.6;
+            ctx.beginPath(); pts0.forEach((p, i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y)); ctx.stroke();
+
+            ctx.strokeStyle = '#db2777'; ctx.lineWidth = 2.6;
+            ctx.beginPath(); ptsP.forEach((p, i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y)); ctx.stroke();
+
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath(); ctx.arc(c0.x, c0.y, 3.5, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(cP.x, cP.y, 3.5, 0, Math.PI*2); ctx.fill();
+            ctx.font = 'bold 12px Inter';
+            ctx.fillText('Коло (центр Q₀)', c0.x + 8, c0.y - 6);
+            ctx.fillText('Еліпс (центр Q)', cP.x + 8, cP.y + 12);
+
+            metricsBox.innerHTML = `
+                <div class="metric-row"><span>Оригінал (Мал. 6.20):</span> <strong>Коло з центром $Q_0$</strong></div>
+                <div class="metric-row"><span>Паралельна проекція:</span> <strong>Еліпс із центром $Q$</strong></div>
+                <div class="metric-row"><span>Властивість центру:</span> <strong style="color:var(--success)">$Q$ — проекція центра $Q_0$</strong></div>
+            `;
+        } else if (current3DFig === 'seg') {
+            // Відрізок A0B0 паралельний проектуючій прямій l!
+            const B0 = [20, 120, 0];
+            const A0 = [20 - 110 * shear * 1.1, 230, 0];
+            const pA0 = toScreen(...A0), pB0 = toScreen(...B0);
+            const pP = projectToAlpha(...B0);
+
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = '#d97706';
+            ctx.beginPath(); ctx.moveTo(pA0.x, pA0.y); ctx.lineTo(pP.x, pP.y); ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.strokeStyle = '#1e3a8a'; ctx.lineWidth = 3.5;
+            ctx.beginPath(); ctx.moveTo(pA0.x, pA0.y); ctx.lineTo(pB0.x, pB0.y); ctx.stroke();
+
+            ctx.fillStyle = '#dc2626';
+            ctx.beginPath(); ctx.arc(pP.x, pP.y, 6, 0, Math.PI*2); ctx.fill();
+
+            ctx.fillStyle = '#0f172a'; ctx.font = 'bold 13px Inter';
+            ctx.fillText('A₀', pA0.x + 8, pA0.y);
+            ctx.fillText('B₀ (A₀B₀ ∥ l)', pB0.x + 8, pB0.y);
+            ctx.fillStyle = '#dc2626';
+            ctx.fillText('Точка A = B (вироджена проекція)', pP.x + 10, pP.y + 5);
+
+            metricsBox.innerHTML = `
+                <div class="metric-row"><span>Розташування $A_0B_0$:</span> <strong>Паралельно прямій $l$ ($A_0B_0 \parallel l$)</strong></div>
+                <div class="metric-row"><span>Проекція на площину $\alpha$:</span> <strong>Одна точка ($A = B$)</strong></div>
+                <div class="metric-row"><span>Висновок (стор. 91):</span> <strong style="color:var(--danger)">Зображення не є наочним!</strong></div>
+            `;
+        }
+    }
+
+    function checkSim2() {
+        const selected = document.querySelector('input[name="q_sim2"]:checked');
+        const fb = document.getElementById('fb-sim2');
+        if (!selected) {
+            fb.className = 'feedback show err';
+            fb.textContent = 'Оберіть один із варіантів відповіді.';
+            return;
+        }
+        const ok = selected.value === 'b';
+        recordAttempt('sim2', `Варіант ${selected.value.toUpperCase()}`, ok);
+        if (ok) {
+            fb.className = 'feedback show ok';
+            fb.textContent = '✅ Правильно! Величина кута при паралельному проекціюванні НЕ обов’язково зберігається (наприклад, квадрат може проектуватися в паралелограм із гострим або тупим кутом).';
+        } else {
+            fb.className = 'feedback show err';
+            fb.textContent = '❌ Помилка. Уважно прочитайте умову: потрібно знайти твердження, яке СУПЕРЕЧИТЬ властивостям паралельного проекціювання (стор. 91).';
+        }
+    }
+
+    // ==========================================
+    // БЛОК 3: DRAG & DROP ПЛОСКИХ ФІГУР (стор. 92–95)
+    // ==========================================
+    const dndItems = [
+        {
+            id: 'card_tri',
+            label: 'Різносторонній △ABC',
+            svg: `<svg viewBox="0 0 140 90"><polygon points="20,74 122,74 52,18" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2.4"/><text x="10" y="80" font-size="11" font-weight="700">A</text><text x="125" y="80" font-size="11" font-weight="700">C</text><text x="48" y="13" font-size="11" font-weight="700">B</text></svg>`
+        },
+        {
+            id: 'card_iso',
+            label: 'Медіана AK до основи BC',
+            svg: `<svg viewBox="0 0 140 90"><polygon points="22,22 38,76 124,62" fill="#f0fdfa" stroke="#0f766e" stroke-width="2.4"/><line x1="22" y1="22" x2="81" y2="69" stroke="#dc2626" stroke-width="2"/><text x="11" y="22" font-size="11" font-weight="700">A</text><text x="30" y="86" font-size="11" font-weight="700">B</text><text x="126" y="65" font-size="11" font-weight="700">C</text><text x="79" y="82" font-size="11" font-weight="700" fill="#dc2626">K</text></svg>`
+        },
+        {
+            id: 'card_para',
+            label: 'Довільний паралелограм',
+            svg: `<svg viewBox="0 0 140 90"><polygon points="36,20 122,20 100,72 14,72" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2.4"/><text x="5" y="76" font-size="11" font-weight="700">A</text><text x="26" y="16" font-size="11" font-weight="700">B</text><text x="124" y="20" font-size="11" font-weight="700">C</text><text x="103" y="76" font-size="11" font-weight="700">D</text></svg>`
+        },
+        {
+            id: 'card_trap',
+            label: 'Трапеція (AD ∥ BC)',
+            svg: `<svg viewBox="0 0 140 90"><polygon points="44,22 92,22 124,72 16,72" fill="#fffbeb" stroke="#b45309" stroke-width="2.4"/><text x="7" y="76" font-size="11" font-weight="700">A</text><text x="34" y="20" font-size="11" font-weight="700">B</text><text x="95" y="20" font-size="11" font-weight="700">C</text><text x="126" y="76" font-size="11" font-weight="700">D</text></svg>`
+        },
+        {
+            id: 'card_hex',
+            label: 'Два симетричні паралелограми',
+            svg: `<svg viewBox="0 0 140 90"><polygon points="44,16 96,16 122,45 96,74 44,74 18,45" fill="#f0fdf4" stroke="#15803d" stroke-width="2.2"/><line x1="18" y1="45" x2="122" y2="45" stroke="#15803d" stroke-width="1.5"/><line x1="44" y1="74" x2="96" y2="16" stroke="#15803d" stroke-width="1.5"/><circle cx="70" cy="45" r="2.5" fill="#0f172a"/><text x="67" y="39" font-size="10" font-weight="700">Q</text></svg>`
+        },
+        {
+            id: 'card_ellipse',
+            label: 'Еліпс із центром Q',
+            svg: `<svg viewBox="0 0 140 90"><ellipse cx="70" cy="46" rx="50" ry="24" fill="#fdf2f8" stroke="#be185d" stroke-width="2.4"/><circle cx="70" cy="46" r="3" fill="#0f172a"/><text x="75" y="44" font-size="11" font-weight="700">Q</text></svg>`
+        }
+    ];
+
+    const dndTargets = [
+        { targetId: 't1', correctCard: 'card_tri', title: '1. Прямокутний рівнобедрений трикутник A₀B₀C₀ (Мал. 6.10)', hint: 'Будь-який трикутник зображується довільним трикутником' },
+        { targetId: 't2', correctCard: 'card_iso', title: '2. Висота і бісектриса рівнобедреного △A₀B₀C₀ до основи (Мал. 6.11)', hint: 'У рівнобедреному трикутнику висота до основи збігається з медіаною' },
+        { targetId: 't3', correctCard: 'card_para', title: '3. Прямокутник, ромб або квадрат A₀B₀C₀D₀ (Мал. 6.14)', hint: 'Проекції паралельних і рівних сторін є паралельними і рівними' },
+        { targetId: 't4', correctCard: 'card_trap', title: '4. Трапеція A₀B₀C₀D₀ з основами A₀D₀ ∥ B₀C₀ (Мал. 6.15)', hint: 'Зберігається паралельність основ та їх відношення' },
+        { targetId: 't5', correctCard: 'card_hex', title: '5. Правильний шестикутник A₀B₀C₀D₀E₀F₀ (Мал. 6.19)', hint: 'Будується як об’єднання двох симетричних паралелограмів' },
+        { targetId: 't6', correctCard: 'card_ellipse', title: '6. Коло з центром у точці Q₀ (Мал. 6.20)', hint: 'Паралельною проекцією кола є еліпс' }
+    ];
+
+    let selectedTouchCardId = null;
+
+    function initDnD() {
+        const pool = document.getElementById('dragPool');
+        const grid = document.getElementById('dropGrid');
+        pool.innerHTML = '';
+        grid.innerHTML = '';
+        selectedTouchCardId = null;
+
+        // Перемішуємо картки
+        const shuffled = [...dndItems].sort(() => Math.random() - 0.5);
+        shuffled.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'drag-card';
+            card.id = item.id;
+            card.draggable = true;
+            card.innerHTML = `${item.svg}<span>${item.label}</span>`;
+
+            card.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', item.id);
+            });
+
+            // Підтримка кліку / тачу на смартфонах
+            card.addEventListener('click', e => {
+                e.stopPropagation();
+                if (selectedTouchCardId === item.id) {
+                    card.classList.remove('selected-touch');
+                    selectedTouchCardId = null;
+                } else {
+                    document.querySelectorAll('.drag-card').forEach(c => c.classList.remove('selected-touch'));
+                    card.classList.add('selected-touch');
+                    selectedTouchCardId = item.id;
+                }
+            });
+
+            pool.appendChild(card);
+        });
+
+        dndTargets.forEach(t => {
+            const box = document.createElement('div');
+            box.className = 'drop-zone-card';
+            box.innerHTML = `
+                <div class="drop-prompt">${t.title}<small>${t.hint}</small></div>
+                <div class="drop-slot" id="${t.targetId}" data-expected="${t.correctCard}">
+                    <span class="slot-placeholder">Перетягніть рисунок сюди або натисніть</span>
+                </div>
+            `;
+            const slot = box.querySelector('.drop-slot');
+
+            slot.addEventListener('dragover', e => {
+                e.preventDefault();
+                slot.classList.add('drag-over');
+            });
+
+            slot.addEventListener('dragleave', () => {
+                slot.classList.remove('drag-over');
+            });
+
+            slot.addEventListener('drop', e => {
+                e.preventDefault();
+                slot.classList.remove('drag-over');
+                const cardId = e.dataTransfer.getData('text/plain');
+                placeCardInSlot(cardId, slot);
+            });
+
+            slot.addEventListener('click', () => {
+                if (selectedTouchCardId) {
+                    placeCardInSlot(selectedTouchCardId, slot);
+                    document.querySelectorAll('.drag-card').forEach(c => c.classList.remove('selected-touch'));
+                    selectedTouchCardId = null;
+                } else if (slot.querySelector('.drag-card')) {
+                    // Повернути картку назад у пул
+                    const existing = slot.querySelector('.drag-card');
+                    document.getElementById('dragPool').appendChild(existing);
+                    slot.innerHTML = '<span class="slot-placeholder">Перетягніть рисунок сюди або натисніть</span>';
+                    slot.classList.remove('correct', 'wrong');
+                }
+            });
+
+            grid.appendChild(box);
+        });
+    }
+
+    function placeCardInSlot(cardId, slot) {
+        const card = document.getElementById(cardId);
+        if (!card) return;
+        const pool = document.getElementById('dragPool');
+        // Якщо в слоті вже є картка, повертаємо її в пул
+        const existing = slot.querySelector('.drag-card');
+        if (existing) {
+            pool.appendChild(existing);
+        }
+        slot.innerHTML = '';
+        slot.appendChild(card);
+        slot.classList.remove('correct', 'wrong');
+    }
+
+    function resetDnD() {
+        initDnD();
+        document.getElementById('fb-dnd').className = 'feedback';
+    }
+
+    function checkDnD() {
+        const slots = document.querySelectorAll('.drop-slot');
+        let correctCount = 0;
+        slots.forEach(slot => {
+            const card = slot.querySelector('.drag-card');
+            slot.classList.remove('correct', 'wrong');
+            if (card && card.id === slot.dataset.expected) {
+                slot.classList.add('correct');
+                correctCount++;
+            } else {
+                slot.classList.add('wrong');
+            }
+        });
+
+        const allOk = correctCount === 6;
+        const earned = Math.round((correctCount / 6) * 3 * 10) / 10;
+        recordAttempt('dnd', `Правильно зіставлено: ${correctCount} з 6 фігур`, allOk, earned);
+
+        const fb = document.getElementById('fb-dnd');
+        if (allOk) {
+            fb.className = 'feedback show ok';
+            fb.textContent = '✅ Бездоганно! Усі 6 плоских фігур та їхніх елементів зіставлено правильно (3 / 3 бали).';
+        } else {
+            fb.className = 'feedback show err';
+            fb.textContent = `⚠️ Правильно зіставлено ${correctCount} із 6. Червоні рамки позначають помилкові комірки (натисніть на картку в комірці, щоб повернути її назад).`;
+        }
+    }
+
+    // ==========================================
+    // БЛОК 4: МНОГОГРАННИКИ ТА РОЗРАХУНКОВІ ЗАДАЧІ
+    // ==========================================
+    function toggleEdge(el) {
+        const current = el.getAttribute('data-state');
+        if (current === 'solid') {
+            el.setAttribute('data-state', 'dashed');
+            el.setAttribute('stroke-dasharray', '6,5');
+            el.setAttribute('stroke', '#64748b');
+        } else {
+            el.setAttribute('data-state', 'solid');
+            el.removeAttribute('stroke-dasharray');
+            el.setAttribute('stroke', '#2563eb');
+        }
+    }
+
+    function checkPolyEdges() {
+        // Правильна відповідь:
+        // Тетраедр: BD = solid, AC = dashed
+        // Куб: DD1 = dashed, AD = dashed, DC = dashed
+        const edges = document.querySelectorAll('.edge-interactive');
+        const states = {};
+        edges.forEach(e => {
+            states[`${e.dataset.poly}_${e.dataset.edge}`] = e.getAttribute('data-state');
+        });
+
+        const okTetra = states['tetra_BD'] === 'solid' && states['tetra_AC'] === 'dashed';
+        const okCube = states['cube_DD1'] === 'dashed' && states['cube_AD'] === 'dashed' && states['cube_DC'] === 'dashed';
+        const allOk = okTetra && okCube;
+
+        recordAttempt('poly', `Тетраедр: ${okTetra ? 'вірно' : 'помилка'}, Куб: ${okCube ? 'вірно' : 'помилка'}`, allOk);
+
+        const fb = document.getElementById('fb-poly');
+        if (allOk) {
+            fb.className = 'feedback show ok';
+            fb.textContent = '✅ Чудово! У тетраедрі ребро AC невидиме (пунктир), а в кубі невидимими є три ребра DD₁, AD і DC (Мал. 6.23 та 6.26).';
+        } else {
+            fb.className = 'feedback show err';
+            fb.textContent = '❌ Перевірте ще раз: у тетраедрі переднє ребро BD має бути суцільним, а заднє AC — пунктирним; у кубі всі 3 ребра з вершини D (DD₁, AD, DC) — пунктирні.';
+        }
+    }
+
+    function checkProblem1() {
+        const val = parseFloat(document.getElementById('ans_p1').value);
+        const fb = document.getElementById('fb-p1');
+        if (isNaN(val)) {
+            fb.className = 'feedback show err';
+            fb.textContent = 'Введіть числове значення у сантиметрах.';
+            return;
+        }
+        // A0C0 / AC = C0B0 / CB => 6 / 4 = 9 / CB => CB = 6 см
+        const ok = Math.abs(val - 6) < 0.05;
+        recordAttempt('p1', `CB = ${val} см`, ok);
+        if (ok) {
+            fb.className = 'feedback show ok';
+            fb.textContent = '✅ Вірно! За властивістю 5 (стор. 91): A₀C₀ / AC = C₀B₀ / CB ⇒ 6 / 4 = 9 / CB ⇒ CB = 6 см.';
+        } else {
+            fb.className = 'feedback show err';
+            fb.textContent = '❌ Неправильно. Скористайтеся формулою з Мал. 6.8 (стор. 91): A₀C₀ / AC = C₀B₀ / CB.';
+        }
+    }
+
+    function checkProblem2() {
+        const val = parseFloat(document.getElementById('ans_p2').value);
+        const fb = document.getElementById('fb-p2');
+        if (isNaN(val)) {
+            fb.className = 'feedback show err';
+            fb.textContent = 'Введіть числове значення у сантиметрах.';
+            return;
+        }
+        // A0D0 / B0C0 = AD / BC => 15 / 5 = 9 / BC => BC = 3 см
+        const ok = Math.abs(val - 3) < 0.05;
+        recordAttempt('p2', `BC = ${val} см`, ok);
+        if (ok) {
+            fb.className = 'feedback show ok';
+            fb.textContent = '✅ Вірно! За властивістю проекції трапеції (стор. 94): A₀D₀ / B₀C₀ = AD / BC ⇒ 15 / 5 = 9 / BC ⇒ BC = 3 см.';
+        } else {
+            fb.className = 'feedback show err';
+            fb.textContent = '❌ Неправильно. Відношення основ трапеції зберігається: A₀D₀ / B₀C₀ = AD / BC.';
+        }
+    }
+
+    // ==========================================
+    // ГЕНЕРАЦІЯ ТА ЗАВАНТАЖЕННЯ PDF-ЗВІТУ
+    // ==========================================
+    function downloadPDFReport() {
+        updateReportHeader();
+        const element = document.getElementById('pdf-printable-area');
+        const studentRaw = document.getElementById('studentName').value.trim() || 'Учень_10_клас';
+        const safeName = studentRaw.replace(/[^a-zA-Zа-яА-ЯіІїЇєЄґҐ0-9_-]/g, '_');
+
+        const opt = {
+            margin:       [10, 10, 10, 10],
+            filename:     `Звіт_Паралельне_проекціювання_${safeName}.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        if (typeof html2pdf !== 'undefined') {
+            html2pdf().set(opt).from(element).save();
+        } else {
+            window.print();
+        }
+    }
+
+    // Ініціалізація при завантаженні
+    window.addEventListener('DOMContentLoaded', () => {
+        drawShadowScene();
+        draw3DProjection();
+        initDnD();
+    });
+</script>
+</body>
+</html>
