@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Ірраціональні рівняння • 10 клас (Алгебра, О. С. Істер)</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent: #10b981;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --border: #cbd5e1;
+      --radius: 16px;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+      background: #f1f5f9;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* Top App Header */
+    .topbar {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #fff;
+      padding: 14px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+    .topbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+    .brand-badge {
+      background: #10b981;
+      color: #064e3b;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .stats-pill-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .stat-pill strong { color: #34d399; }
+
+    /* Container */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: var(--bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      color: #fff;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+    .hero-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+    .hero-tag {
+      display: inline-block;
+      width: fit-content;
+      background: rgba(37, 99, 235, 0.35);
+      border: 1px solid #60a5fa;
+      color: #bfdbfe;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.8vw, 1.95rem);
+      line-height: 1.25;
+    }
+    .hero p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+    .hero-media {
+      position: relative;
+      min-height: 210px;
+      background: #0b1120;
+    }
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Student Profile Card */
+    .profile-bar {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid #e2e8f0;
+      display: grid;
+      grid-template-columns: 1.5fr 0.8fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+    .field-group { display: flex; flex-direction: column; gap: 4px; }
+    .field-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #f8fafc;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+
+    /* Navigation Tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex: 0 0 auto;
+      background: #fff;
+      border: 1.5px solid #cbd5e1;
+      color: var(--text-main);
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .tab-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+    }
+    .tab-score {
+      font-size: 0.78rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.08);
+    }
+    .tab-btn.active .tab-score {
+      background: rgba(255, 255, 255, 0.22);
+      color: #fff;
+    }
+
+    /* Cards & Sections */
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid #e2e8f0;
+    }
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .card-title {
+      margin: 0;
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .theory-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 12px 14px;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.93rem;
+      margin-bottom: 16px;
+      color: #1e3a8a;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.2s, box-shadow 0.2s;
+      min-height: 44px;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-success { background: var(--accent); color: #fff; }
+    .btn-success:hover { background: #059669; }
+    .btn-outline { background: #fff; border: 1.5px solid #cbd5e1; color: var(--text-main); }
+    .btn-outline:hover { background: #f8fafc; border-color: #94a3b8; }
+
+    /* Feedback alert */
+    .feedback {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.93rem;
+      display: none;
+    }
+    .feedback.show { display: block; }
+    .feedback.ok { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .feedback.err { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    .feedback.warn { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+
+    /* Canvas Simulation */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .canvas-wrap {
+      background: #0f172a;
+      border-radius: 14px;
+      padding: 10px;
+      border: 1px solid #334155;
+    }
+    canvas#graphCanvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: #0b1120;
+    }
+    .slider-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .slider-row label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      height: 28px;
+      cursor: pointer;
+    }
+    .eq-display {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    /* Drag & Drop (Mouse + Touch Tap/Drag Friendly) */
+    .dnd-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-height: 64px;
+      padding: 12px;
+      background: #f8fafc;
+      border: 2px dashed #94a3b8;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .drag-chip {
+      background: #fff;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: grab;
+      user-select: none;
+      touch-action: manipulation;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+      transition: transform 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .drag-chip:hover { border-color: var(--primary); }
+    .drag-chip.selected-chip {
+      border-color: var(--primary);
+      background: #dbeafe;
+      transform: scale(1.03);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+    .buckets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .drop-bucket {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .drop-bucket.drag-over {
+      background: #eff6ff;
+      border-color: var(--primary);
+    }
+    .bucket-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Ordering Slots */
+    .order-slots {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .order-slot {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      min-height: 54px;
+      transition: all 0.2s;
+    }
+    .order-slot.drag-over { border-color: var(--primary); background: #eff6ff; }
+    .slot-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Step-by-step Trainer */
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .level-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 16px;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .level-badge {
+      display: inline-block;
+      width: fit-content;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .lvl-1 { background: #dcfce7; color: #166534; }
+    .lvl-2 { background: #fef3c7; color: #92400e; }
+    .lvl-3 { background: #fee2e2; color: #991b1b; }
+    .math-eq {
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: #0f172a;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+
+    /* Report Table & Log */
+    .report-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .kpi-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+    .kpi-val {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+    .kpi-lbl {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #334155;
+    }
+    .log-list {
+      max-height: 260px;
+      overflow-y: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px;
+      background: #f8fafc;
+      font-size: 0.86rem;
+    }
+    .log-item {
+      padding: 6px 8px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .log-item:last-child { border-bottom: none; }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-media { max-height: 210px; }
+      .profile-bar { grid-template-columns: 1fr 1fr; }
+      .profile-bar button { grid-column: span 2; }
+      .sim-grid { grid-template-columns: 1fr; }
+      .buckets-grid { grid-template-columns: 1fr; }
+      .level-grid { grid-template-columns: 1fr; }
+      .report-summary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .profile-bar { grid-template-columns: 1fr; }
+      .profile-bar button { grid-column: span 1; }
+      .container { padding: 12px; }
+      .card { padding: 14px; }
+      .topbar-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span>√x Алгебра 10 клас</span>
+        <span class="brand-badge">О. С. Істер</span>
+      </div>
+      <div class="stats-pill-group">
+        <div class="stat-pill">Бали: <strong id="hdrPoints">0</strong> / 100</div>
+        <div class="stat-pill">Оцінка (12-б): <strong id="hdrGrade">1</strong></div>
+        <div class="stat-pill">Спроб: <strong id="hdrAttempts">0</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Banner -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-tag">Розділ: Ірраціональні рівняння • § 10–11</span>
+        <h1>Інтерактивна лабораторія розв'язування ірраціональних рівнянь</h1>
+        <p>Досліджуй графічний зміст ОДЗ, відсіюй сторонні корені перетягуванням карток, розв'язуй рівняння за рівнями складності та сформуй офіційний PDF-звіт зі своїми результатами.</p>
+      </div>
+      <div class="hero-media">
+        <img src="assets/hero-algebra-10.jpg" alt="Алгебра 10 клас — ірраціональні рівняння" />
+      </div>
+    </section>
+
+    <!-- Student Registration Bar -->
+    <section class="profile-bar" aria-label="Дані учня">
+      <div class="field-group">
+        <label for="studentName">Прізвище та ім'я учня</label>
+        <input type="text" id="studentName" placeholder="Наприклад: Коваленко Максим" />
+      </div>
+      <div class="field-group">
+        <label for="studentClass">Клас</label>
+        <input type="text" id="studentClass" value="10-А" placeholder="10-А" />
+      </div>
+      <button class="btn btn-primary" onclick="saveStudentProfile()">Зберегти профіль</button>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="tab-sim" onclick="switchTab('tab-sim', this)">
+        1. Лабораторія ОДЗ <span class="tab-score" id="badge-sim">0/20</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-dnd1" onclick="switchTab('tab-dnd1', this)">
+        2. Фільтр коренів (DnD) <span class="tab-score" id="badge-dnd1">0/25</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-dnd2" onclick="switchTab('tab-dnd2', this)">
+        3. Алгоритм (DnD) <span class="tab-score" id="badge-dnd2">0/20</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-trainer" onclick="switchTab('tab-trainer', this)">
+        4. Тренажер рівнів <span class="tab-score" id="badge-trainer">0/35</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-report" onclick="switchTab('tab-report', this)">
+        5. Звіт та PDF
+      </button>
+    </nav>
+
+    <!-- TAB 1: SIMULATION -->
+    <section id="tab-sim" class="panel active">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Графічна симуляція: √(x + a) = kx + b</h2>
+          <span style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">Максимум: 20 балів</span>
+        </div>
+        <div class="theory-box">
+          <strong>Підказка за підручником О. С. Істера:</strong> При піднесенні обох частин рівняння √f(x) = g(x) до квадрата отримуємо f(x) = g²(x) (повну параболу). Точки перетину прямої з <em>нижньою пунктирною віткою</em> параболи — це <strong>сторонні корені</strong>, де kx + b &lt; 0.
+        </div>
+
+        <div class="sim-grid">
+          <div class="canvas-wrap">
+            <canvas id="graphCanvas" width="640" height="400"></canvas>
+          </div>
+
+          <div class="slider-box">
+            <div class="eq-display" id="simEqText">√(x + 4) = 0.5x + 1</div>
+
+            <div class="slider-row">
+              <label><span>Зсув під коренем (a):</span> <span id="valA">4</span></label>
+              <input type="range" id="paramA" min="-5" max="8" step="1" value="4" oninput="updateSim()" />
+            </div>
+            <div class="slider-row">
+              <label><span>Кутовий коефіцієнт (k):</span> <span id="valK">0.5</span></label>
+              <input type="range" id="paramK" min="-1.5" max="2" step="0.25" value="0.5" oninput="updateSim()" />
+            </div>
+            <div class="slider-row">
+              <label><span>Вільний член прямої (b):</span> <span id="valB">1</span></label>
+              <input type="range" id="paramB" min="-4" max="5" step="0.5" value="1" oninput="updateSim()" />
+            </div>
+
+            <div id="simLiveStatus" style="font-size:0.88rem; background:#fff; padding:10px; border-radius:8px; border:1px solid #cbd5e1;"></div>
+
+            <hr style="border:none; border-top:1px solid #cbd5e1; width:100%; margin:4px 0;" />
+
+            <div style="font-weight:800; font-size:0.95rem;">Практичне завдання (20 балів):</div>
+            <p style="margin:0; font-size:0.88rem; color:var(--text-muted);">
+              Встановіть параметри <strong>a = 5</strong>, <strong>k = 1</strong>, <strong>b = -1</strong> і визначте, скільки справжніх коренів має рівняння √(x + 5) = x − 1 (та чи є сторонній корінь).
+            </p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <select id="simAnsReal">
+                <option value="">Справжніх коренів...</option>
+                <option value="0">0 коренів</option>
+                <option value="1">1 корінь (x = 4)</option>
+                <option value="2">2 корені (x = -1; 4)</option>
+              </select>
+              <select id="simAnsExtra">
+                <option value="">Сторонній корінь...</option>
+                <option value="none">Немає</option>
+                <option value="-1">Є: x = -1</option>
+                <option value="4">Є: x = 4</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" onclick="checkSimTask()">Перевірити дослідження</button>
+            <div class="feedback" id="fb-sim"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: DRAG AND DROP CLASSIFICATION -->
+    <section id="tab-dnd1" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Інтерактив 1: Класифікатор коренів та ОДЗ</h2>
+          <span style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">Максимум: 25 балів</span>
+        </div>
+        <p style="margin-top:0; font-size:0.92rem; color:var(--text-muted);">
+          Перетягніть кожну картку у відповідний кошик. <strong>На смартфоні:</strong> торкніться картки, щоб виділити її, а потім торкніться потрібного кошика.
+        </p>
+
+        <div class="dnd-pool" id="pool1" ondragover="allowDrop(event)" ondrop="dropToZone(event, 'pool1')" onclick="tapZone('pool1')"></div>
+
+        <div class="buckets-grid">
+          <div class="drop-bucket" id="bucket-valid" ondragover="allowDrop(event)" ondrop="dropToZone(event, 'bucket-valid')" onclick="tapZone('bucket-valid')">
+            <div class="bucket-title" style="color:#15803d;">✅ Справжній корінь рівняння</div>
+          </div>
+          <div class="drop-bucket" id="bucket-extra" ondragover="allowDrop(event)" ondrop="dropToZone(event, 'bucket-extra')" onclick="tapZone('bucket-extra')">
+            <div class="bucket-title" style="color:#b45309;">⚠️ Сторонній корінь (не підходить)</div>
+          </div>
+          <div class="drop-bucket" id="bucket-nosol" ondragover="allowDrop(event)" ondrop="dropToZone(event, 'bucket-nosol')" onclick="tapZone('bucket-nosol')">
+            <div class="bucket-title" style="color:#b91c1c;">⛔ Рівняння не має розв'язків</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;">
+          <button class="btn btn-primary" onclick="checkDnd1()">Перевірити розподіл</button>
+          <button class="btn btn-outline" onclick="resetDnd1()">Скинути картки</button>
+        </div>
+        <div class="feedback" id="fb-dnd1"></div>
+      </div>
+    </section>
+
+    <!-- TAB 3: DRAG AND DROP ALGORITHM ORDER -->
+    <section id="tab-dnd2" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Інтерактив 2: Конструктор алгоритму (за Істером)</h2>
+          <span style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">Максимум: 20 балів</span>
+        </div>
+        <p style="margin-top:0; font-size:0.92rem; color:var(--text-muted);">
+          Відновіть правильну послідовність кроків при розв'язуванні рівняння <strong>√(2x + 7) = x + 2</strong> методом рівносильних переходів. Перетягніть картки у слоти 1–5 (або торкніться картки та слота).
+        </p>
+
+        <div class="dnd-pool" id="pool2" ondragover="allowDrop(event)" ondrop="dropToZone(event, 'pool2')" onclick="tapZone('pool2')"></div>
+
+        <div class="order-slots">
+          <div class="order-slot" id="slot-1" ondragover="allowDrop(event)" ondrop="dropToSlot(event, 'slot-1')" onclick="tapSlot('slot-1')"><span class="slot-num">1</span></div>
+          <div class="order-slot" id="slot-2" ondragover="allowDrop(event)" ondrop="dropToSlot(event, 'slot-2')" onclick="tapSlot('slot-2')"><span class="slot-num">2</span></div>
+          <div class="order-slot" id="slot-3" ondragover="allowDrop(event)" ondrop="dropToSlot(event, 'slot-3')" onclick="tapSlot('slot-3')"><span class="slot-num">3</span></div>
+          <div class="order-slot" id="slot-4" ondragover="allowDrop(event)" ondrop="dropToSlot(event, 'slot-4')" onclick="tapSlot('slot-4')"><span class="slot-num">4</span></div>
+          <div class="order-slot" id="slot-5" ondragover="allowDrop(event)" ondrop="dropToSlot(event, 'slot-5')" onclick="tapSlot('slot-5')"><span class="slot-num">5</span></div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;">
+          <button class="btn btn-primary" onclick="checkDnd2()">Перевірити послідовність</button>
+          <button class="btn btn-outline" onclick="resetDnd2()">Перемішати знову</button>
+        </div>
+        <div class="feedback" id="fb-dnd2"></div>
+      </div>
+    </section>
+
+    <!-- TAB 4: STEP-BY-STEP TRAINER -->
+    <section id="tab-trainer" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Покроковий тренажер (3 рівні навчальних досягнень)</h2>
+          <span style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">Максимум: 35 балів</span>
+        </div>
+
+        <div class="level-grid">
+          <div class="level-card">
+            <div>
+              <span class="level-badge lvl-1">Середній рівень • 10 балів</span>
+              <h3 style="margin:8px 0; font-size:1rem;">Завдання 1</h3>
+              <div class="math-eq">√(3x − 2) = 4</div>
+              <div class="field-group" style="margin-top:10px;">
+                <label>Крок 1: Чому дорівнює 3x − 2?</label>
+                <input type="number" id="t1-step1" placeholder="Введіть число" />
+              </div>
+              <div class="field-group" style="margin-top:8px;">
+                <label>Крок 2: Корінь рівняння x =</label>
+                <input type="number" id="t1-step2" placeholder="Введіть x" />
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-primary" style="width:100%;" onclick="checkTask1()">Перевірити №1</button>
+              <div class="feedback" id="fb-t1"></div>
+            </div>
+          </div>
+
+          <div class="level-card">
+            <div>
+              <span class="level-badge lvl-2">Достатній рівень • 12 балів</span>
+              <h3 style="margin:8px 0; font-size:1rem;">Завдання 2</h3>
+              <div class="math-eq">√(2x + 3) = x</div>
+              <div class="field-group" style="margin-top:10px;">
+                <label>Крок 1: Умова невід'ємності правої частини</label>
+                <select id="t2-step1">
+                  <option value="">Оберіть умову...</option>
+                  <option value="x>=0">x ≥ 0</option>
+                  <option value="x<=0">x ≤ 0</option>
+                  <option value="any">Будь-яке x ∈ R</option>
+                </select>
+              </div>
+              <div class="field-group" style="margin-top:8px;">
+                <label>Крок 2: Справжній корінь x =</label>
+                <input type="number" id="t2-step2" placeholder="Лише справжній корінь" />
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-primary" style="width:100%;" onclick="checkTask2()">Перевірити №2</button>
+              <div class="feedback" id="fb-t2"></div>
+            </div>
+          </div>
+
+          <div class="level-card">
+            <div>
+              <span class="level-badge lvl-3">Високий рівень • 13 балів</span>
+              <h3 style="margin:8px 0; font-size:1rem;">Завдання 3 (Заміна змінної)</h3>
+              <div class="math-eq">x − 3√x − 4 = 0</div>
+              <div class="field-group" style="margin-top:10px;">
+                <label>Крок 1: Невід'ємний корінь t = √x (t ≥ 0)</label>
+                <input type="number" id="t3-step1" placeholder="Введіть t" />
+              </div>
+              <div class="field-group" style="margin-top:8px;">
+                <label>Крок 2: Остаточний корінь x =</label>
+                <input type="number" id="t3-step2" placeholder="Введіть x" />
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-primary" style="width:100%;" onclick="checkTask3()">Перевірити №3</button>
+              <div class="feedback" id="fb-t3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: REPORT & PDF DOWNLOAD -->
+    <section id="tab-report" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Підсумковий протокол навчальних досягнень</h2>
+          <button class="btn btn-success" onclick="generatePDFReport()">📥 Завантажити PDF-звіт на комп'ютер</button>
+        </div>
+
+        <div class="report-summary-grid">
+          <div class="kpi-box">
+            <div class="kpi-val" id="repPoints">0 / 100</div>
+            <div class="kpi-lbl">Набрано балів</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" id="repGrade" style="color:#10b981;">1</div>
+            <div class="kpi-lbl">Оцінка (12-бальна)</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" id="repAttempts" style="color:#f59e0b;">0</div>
+            <div class="kpi-lbl">Кількість спроб</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" id="repCompleted" style="color:#6366f1;">0 / 6</div>
+            <div class="kpi-lbl">Виконано етапів</div>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto; margin-bottom:18px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Етап роботи</th>
+                <th>Спроб</th>
+                <th>Проміжний результат</th>
+                <th>Бали</th>
+              </tr>
+            </thead>
+            <tbody id="reportTableBody"></tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size:1rem; margin-bottom:8px;">Хронологічний журнал спроб учня:</h3>
+        <div class="log-list" id="attemptLogList">
+          <div style="color:var(--text-muted); text-align:center; padding:12px;">Спроб ще не зафіксовано. Почніть виконання завдань!</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="pdfPrintArea" style="position:fixed; left:-9999px; top:0; width:794px; background:#ffffff; color:#0f172a; padding:36px; font-family: Arial, sans-serif;"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    const state = {
+      studentName: "",
+      studentClass: "10-А",
+      scores: { sim: 0, dnd1: 0, dnd2: 0, t1: 0, t2: 0, t3: 0 },
+      attempts: { sim: 0, dnd1: 0, dnd2: 0, t1: 0, t2: 0, t3: 0 },
+      statusText: {
+        sim: "Не виконано",
+        dnd1: "Не виконано",
+        dnd2: "Не виконано",
+        t1: "Не виконано",
+        t2: "Не виконано",
+        t3: "Не виконано"
+      },
+      logs: []
+    };
+
+    function getTotalPoints() {
+      return Object.values(state.scores).reduce((a, b) => a + b, 0);
+    }
+
+    function getTotalAttempts() {
+      return Object.values(state.attempts).reduce((a, b) => a + b, 0);
+    }
+
+    function getGrade12(pts) {
+      if (pts >= 95) return 12;
+      if (pts >= 88) return 11;
+      if (pts >= 80) return 10;
+      if (pts >= 72) return 9;
+      if (pts >= 64) return 8;
+      if (pts >= 55) return 7;
+      if (pts >= 46) return 6;
+      if (pts >= 37) return 5;
+      if (pts >= 28) return 4;
+      if (pts >= 18) return 3;
+      if (pts >= 8)  return 2;
+      return 1;
+    }
+
+    function logAttempt(stageName, details, isSuccess, earnedPoints) {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      state.logs.unshift({ time: timeStr, stage: stageName, details: details, success: isSuccess, points: earnedPoints });
+      updateUI();
+    }
+
+    function saveStudentProfile() {
+      const nameVal = document.getElementById("studentName").value.trim();
+      const classVal = document.getElementById("studentClass").value.trim();
+      state.studentName = nameVal || "Учень 10 класу";
+      state.studentClass = classVal || "10-А";
+      logAttempt("Профіль", `Збережено дані: ${state.studentName} (${state.studentClass})`, true, 0);
+      alert(`Профіль збережено: ${state.studentName}, клас ${state.studentClass}`);
+    }
+
+    function switchTab(tabId, btn) {
+      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById(tabId).classList.add("active");
+      btn.classList.add("active");
+      if (tabId === "tab-sim") updateSim();
+      if (tabId === "tab-report") renderReport();
+    }
+
+    function showFeedback(id, type, msg) {
+      const el = document.getElementById(id);
+      el.className = `feedback show ${type}`;
+      el.innerHTML = msg;
+    }
+
+    function updateUI() {
+      const pts = getTotalPoints();
+      const grade = getGrade12(pts);
+      const att = getTotalAttempts();
+
+      document.getElementById("hdrPoints").textContent = pts;
+      document.getElementById("hdrGrade").textContent = grade;
+      document.getElementById("hdrAttempts").textContent = att;
+
+      document.getElementById("badge-sim").textContent = `${state.scores.sim}/20`;
+      document.getElementById("badge-dnd1").textContent = `${state.scores.dnd1}/25`;
+      document.getElementById("badge-dnd2").textContent = `${state.scores.dnd2}/20`;
+      document.getElementById("badge-trainer").textContent = `${state.scores.t1 + state.scores.t2 + state.scores.t3}/35`;
+
+      renderReport();
+    }
+
+    function updateSim() {
+      const a = parseFloat(document.getElementById("paramA").value);
+      const k = parseFloat(document.getElementById("paramK").value);
+      const b = parseFloat(document.getElementById("paramB").value);
+
+      document.getElementById("valA").textContent = a;
+      document.getElementById("valK").textContent = k;
+      document.getElementById("valB").textContent = b;
+
+      const signA = a >= 0 ? `+ ${a}` : `− ${Math.abs(a)}`;
+      const signB = b >= 0 ? `+ ${b}` : `− ${Math.abs(b)}`;
+      document.getElementById("simEqText").textContent = `√(x ${signA}) = ${k}x ${signB}`;
+
+      drawGraph(a, k, b);
+    }
+
+    function drawGraph(a = 4, k = 0.5, b = 1) {
+      const canvas = document.getElementById("graphCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const W = canvas.width;
+      const H = canvas.height;
+      const scale = 32;
+      const ox = W * 0.42;
+      const oy = H * 0.55;
+
+      ctx.clearRect(0, 0, W, H);
+
+      const odzX = ox + (-a) * scale;
+      ctx.fillStyle = "rgba(16, 185, 129, 0.12)";
+      ctx.fillRect(Math.max(0, odzX), 0, W - Math.max(0, odzX), H);
+
+      ctx.strokeStyle = "#1e293b";
+      ctx.lineWidth = 1;
+      for (let x = ox % scale; x < W; x += scale) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let y = oy % scale; y < H; y += scale) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+
+      ctx.strokeStyle = "#64748b";
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0, oy); ctx.lineTo(W, oy); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ox, 0); ctx.lineTo(ox, H); ctx.stroke();
+
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "11px sans-serif";
+      for (let i = -8; i <= 10; i++) {
+        if (i === 0) continue;
+        ctx.fillText(i, ox + i * scale - 4, oy + 14);
+      }
+
+      ctx.save();
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = "#f59e0b";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      let started = false;
+      for (let px = odzX; px <= W; px += 2) {
+        const x = (px - ox) / scale;
+        if (x + a >= 0) {
+          const y = -Math.sqrt(x + a);
+          const py = oy - y * scale;
+          if (!started) { ctx.moveTo(px, py); started = true; }
+          else ctx.lineTo(px, py);
+        }
+      }
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.strokeStyle = "#10b981";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      started = false;
+      for (let px = odzX; px <= W; px += 2) {
+        const x = (px - ox) / scale;
+        if (x + a >= 0) {
+          const y = Math.sqrt(x + a);
+          const py = oy - y * scale;
+          if (!started) { ctx.moveTo(px, py); started = true; }
+          else ctx.lineTo(px, py);
+        }
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = "#38bdf8";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      const x1 = -ox / scale;
+      const x2 = (W - ox) / scale;
+      ctx.moveTo(0, oy - (k * x1 + b) * scale);
+      ctx.lineTo(W, oy - (k * x2 + b) * scale);
+      ctx.stroke();
+
+      let realRoots = [];
+      let extraRoots = [];
+      const A = k * k;
+      const B = 2 * k * b - 1;
+      const C = b * b - a;
+
+      let candidates = [];
+      if (Math.abs(A) < 1e-6) {
+        if (Math.abs(B) > 1e-6) candidates.push(-C / B);
+      } else {
+        const D = B * B - 4 * A * C;
+        if (D >= 0) {
+          candidates.push((-B - Math.sqrt(D)) / (2 * A));
+          if (D > 1e-6) candidates.push((-B + Math.sqrt(D)) / (2 * A));
+        }
+      }
+
+      candidates.forEach(xr => {
+        if (xr + a >= -1e-5) {
+          const yr = k * xr + b;
+          const px = ox + xr * scale;
+          const py = oy - yr * scale;
+          if (yr >= -1e-5) {
+            realRoots.push(xr.toFixed(2));
+            ctx.fillStyle = "#22c55e";
+            ctx.beginPath(); ctx.arc(px, py, 7, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.stroke();
+          } else {
+            extraRoots.push(xr.toFixed(2));
+            ctx.fillStyle = "#ef4444";
+            ctx.beginPath(); ctx.arc(px, py, 7, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.stroke();
+          }
+        }
+      });
+
+      ctx.fillStyle = "rgba(15,23,42,0.85)";
+      ctx.fillRect(10, 10, 245, 72);
+      ctx.font = "12px sans-serif";
+      ctx.fillStyle = "#10b981"; ctx.fillText("— y = √(x + a) (ОДЗ: x ≥ " + (-a) + ")", 18, 28);
+      ctx.fillStyle = "#38bdf8"; ctx.fillText("— y = kx + b (права частина)", 18, 48);
+      ctx.fillStyle = "#f59e0b"; ctx.fillText("--- нижня вітка (сторонні корені)", 18, 68);
+
+      document.getElementById("simLiveStatus").innerHTML = `
+        <strong>ОДЗ:</strong> x ≥ ${-a} &nbsp;|&nbsp;
+        <span style="color:#15803d;"><strong>Справжні:</strong> ${realRoots.length ? realRoots.join("; ") : "немає"}</span> &nbsp;|&nbsp;
+        <span style="color:#b91c1c;"><strong>Сторонні:</strong> ${extraRoots.length ? extraRoots.join("; ") : "немає"}</span>
+      `;
+    }
+
+    function checkSimTask() {
+      state.attempts.sim++;
+      const a = parseFloat(document.getElementById("paramA").value);
+      const k = parseFloat(document.getElementById("paramK").value);
+      const b = parseFloat(document.getElementById("paramB").value);
+      const ansReal = document.getElementById("simAnsReal").value;
+      const ansExtra = document.getElementById("simAnsExtra").value;
+
+      if (!ansReal || !ansExtra) {
+        showFeedback("fb-sim", "warn", "Оберіть обидва варіанти відповіді зі списків перед перевіркою!");
+        logAttempt("Лабораторія ОДЗ", "Неповна відповідь", false, 0);
+        return;
+      }
+
+      const paramsOk = (a === 5 && k === 1 && b === -1);
+      const answersOk = (ansReal === "1" && ansExtra === "-1");
+
+      if (paramsOk && answersOk) {
+        state.scores.sim = 20;
+        state.statusText.sim = "Виконано (20/20)";
+        showFeedback("fb-sim", "ok", "Чудово! При a=5, k=1, b=-1 пряма перетинає верхню вітку в точці x = 4 (справжній корінь), а нижню пунктирну вітку в точці x = -1 (сторонній корінь, бо -1 - 1 = -2 < 0). +20 балів!");
+        logAttempt("Лабораторія ОДЗ", "Правильно досліджено √(x+5) = x-1 (x=4 справжній, x=-1 сторонній)", true, 20);
+      } else if (answersOk && !paramsOk) {
+        state.scores.sim = Math.max(state.scores.sim, 12);
+        state.statusText.sim = `Частково (${state.scores.sim}/20)`;
+        showFeedback("fb-sim", "warn", "Відповіді правильні, але повзунки на графіку не виставлені на a = 5, k = 1, b = -1! Виставте їх і натисніть «Перевірити» ще раз для повних 20 балів.");
+        logAttempt("Лабораторія ОДЗ", `Відповіді вірні, але параметри на графіку: a=${a}, k=${k}, b=${b}`, false, 12);
+      } else {
+        state.statusText.sim = `Помилка (спроб: ${state.attempts.sim})`;
+        showFeedback("fb-sim", "err", "Перевірте ще раз: виставте a = 5, k = 1, b = -1 на повзунках та подивіться на зелену і червону точки перетину.");
+        logAttempt("Лабораторія ОДЗ", `Невдала спроба (a=${a}, k=${k}, b=${b}, відп: ${ansReal}/${ansExtra})`, false, 0);
+      }
+    }
+
+    let selectedChipId = null;
+
+    const dnd1Items = [
+      { id: "c1", text: "x = 7 для √(x + 2) = 3", target: "bucket-valid" },
+      { id: "c2", text: "x = −2 для √(x + 6) = x", target: "bucket-extra" },
+      { id: "c3", text: "√(2x − 1) = −5", target: "bucket-nosol" },
+      { id: "c4", text: "x = 5 для √(x − 1) = x − 3", target: "bucket-valid" },
+      { id: "c5", text: "x = 2 для √(x − 1) = x − 3", target: "bucket-extra" },
+      { id: "c6", text: "√(x − 4) + √(2 − x) = 3", target: "bucket-nosol" }
+    ];
+
+    function initDnd1() {
+      const pool = document.getElementById("pool1");
+      pool.innerHTML = "";
+      ["bucket-valid", "bucket-extra", "bucket-nosol"].forEach(bId => {
+        const b = document.getElementById(bId);
+        const title = b.querySelector(".bucket-title");
+        b.innerHTML = "";
+        b.appendChild(title);
+      });
+      dnd1Items.forEach(item => {
+        pool.appendChild(createChip(item.id, item.text));
+      });
+    }
+
+    function createChip(id, text) {
+      const div = document.createElement("div");
+      div.className = "drag-chip";
+      div.id = id;
+      div.textContent = text;
+      div.draggable = true;
+      div.ondragstart = (e) => {
+        e.dataTransfer.setData("text/plain", id);
+        selectedChipId = id;
+      };
+      div.onclick = (e) => {
+        e.stopPropagation();
+        document.querySelectorAll(".drag-chip").forEach(c => c.classList.remove("selected-chip"));
+        if (selectedChipId === id) {
+          selectedChipId = null;
+        } else {
+          selectedChipId = id;
+          div.classList.add("selected-chip");
+        }
+      };
+      return div;
+    }
+
+    function allowDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add("drag-over");
+    }
+
+    function dropToZone(e, zoneId) {
+      e.preventDefault();
+      e.currentTarget.classList.remove("drag-over");
+      const id = e.dataTransfer.getData("text/plain") || selectedChipId;
+      moveChipToZone(id, zoneId);
+    }
+
+    function tapZone(zoneId) {
+      if (selectedChipId) moveChipToZone(selectedChipId, zoneId);
+    }
+
+    function moveChipToZone(chipId, zoneId) {
+      const chip = document.getElementById(chipId);
+      const zone = document.getElementById(zoneId);
+      if (chip && zone) {
+        zone.appendChild(chip);
+        chip.classList.remove("selected-chip");
+        selectedChipId = null;
+      }
+    }
+
+    function checkDnd1() {
+      state.attempts.dnd1++;
+      let correct = 0;
+      let placed = 0;
+      dnd1Items.forEach(item => {
+        const chip = document.getElementById(item.id);
+        const parentId = chip.parentElement.id;
+        if (parentId !== "pool1") placed++;
+        if (parentId === item.target) {
+          correct++;
+          chip.style.borderColor = "#16a34a";
+        } else if (parentId !== "pool1") {
+          chip.style.borderColor = "#dc2626";
+        }
+      });
+
+      if (placed < dnd1Items.length) {
+        showFeedback("fb-dnd1", "warn", `Розподіліть усі 6 карток по кошиках (залишилось: ${6 - placed}).`);
+        logAttempt("Фільтр коренів (DnD)", `Не всі картки розподілено (${placed}/6)`, false, 0);
+        return;
+      }
+
+      const pts = Math.round((correct / dnd1Items.length) * 25);
+      state.scores.dnd1 = Math.max(state.scores.dnd1, pts);
+
+      if (correct === dnd1Items.length) {
+        state.statusText.dnd1 = "Виконано (25/25)";
+        showFeedback("fb-dnd1", "ok", "Бездоганно! Усі 6 випадків класифіковано правильно. +25 балів!");
+        logAttempt("Фільтр коренів (DnD)", "Усі 6 карток розміщено правильно", true, 25);
+      } else {
+        state.statusText.dnd1 = `Частково (${state.scores.dnd1}/25)`;
+        showFeedback("fb-dnd1", "err", `Правильно розміщено ${correct} із 6 карток (нараховано ${pts} балів). Картки з червоною рамкою потребують виправлення.`);
+        logAttempt("Фільтр коренів (DnD)", `Правильно ${correct}/6 карток`, false, pts);
+      }
+    }
+
+    function resetDnd1() {
+      selectedChipId = null;
+      initDnd1();
+      document.getElementById("fb-dnd1").className = "feedback";
+    }
+
+    const dnd2Steps = [
+      { id: "s1", order: 1, text: "Записати умову невід'ємності правої частини: x + 2 ≥ 0 (x ≥ −2)" },
+      { id: "s2", order: 2, text: "Піднести обидві частини до квадрата: 2x + 7 = (x + 2)²" },
+      { id: "s3", order: 3, text: "Звести до квадратного рівняння: x² + 2x − 3 = 0" },
+      { id: "s4", order: 4, text: "Знайти корені квадратного рівняння: x₁ = 1, x₂ = −3" },
+      { id: "s5", order: 5, text: "Відсіяти сторонній корінь (−3 < −2) і записати відповідь: x = 1" }
+    ];
+
+    function initDnd2() {
+      const pool = document.getElementById("pool2");
+      pool.innerHTML = "";
+      for (let i = 1; i <= 5; i++) {
+        const slot = document.getElementById(`slot-${i}`);
+        slot.innerHTML = `<span class="slot-num">${i}</span>`;
+      }
+      const shuffled = [...dnd2Steps].sort(() => Math.random() - 0.5);
+      shuffled.forEach(st => {
+        pool.appendChild(createChip(st.id, st.text));
+      });
+    }
+
+    function dropToSlot(e, slotId) {
+      e.preventDefault();
+      e.currentTarget.classList.remove("drag-over");
+      const id = e.dataTransfer.getData("text/plain") || selectedChipId;
+      placeInSlot(id, slotId);
+    }
+
+    function tapSlot(slotId) {
+      if (selectedChipId) placeInSlot(selectedChipId, slotId);
+    }
+
+    function placeInSlot(chipId, slotId) {
+      const chip = document.getElementById(chipId);
+      const slot = document.getElementById(slotId);
+      if (!chip || !slot || !chip.id.startsWith("s")) return;
+      const existing = slot.querySelector(".drag-chip");
+      if (existing) document.getElementById("pool2").appendChild(existing);
+      slot.appendChild(chip);
+      chip.classList.remove("selected-chip");
+      selectedChipId = null;
+    }
+
+    function checkDnd2() {
+      state.attempts.dnd2++;
+      let correct = 0;
+      let filled = 0;
+
+      for (let i = 1; i <= 5; i++) {
+        const slot = document.getElementById(`slot-${i}`);
+        const chip = slot.querySelector(".drag-chip");
+        if (chip) {
+          filled++;
+          const stepObj = dnd2Steps.find(s => s.id === chip.id);
+          if (stepObj && stepObj.order === i) {
+            correct++;
+            chip.style.borderColor = "#16a34a";
+          } else {
+            chip.style.borderColor = "#dc2626";
+          }
+        }
+      }
+
+      if (filled < 5) {
+        showFeedback("fb-dnd2", "warn", `Заповніть усі 5 кроків алгоритму (заповнено: ${filled}/5).`);
+        logAttempt("Алгоритм (DnD)", `Не всі слоти заповнено (${filled}/5)`, false, 0);
+        return;
+      }
+
+      const pts = correct * 4;
+      state.scores.dnd2 = Math.max(state.scores.dnd2, pts);
+
+      if (correct === 5) {
+        state.statusText.dnd2 = "Виконано (20/20)";
+        showFeedback("fb-dnd2", "ok", "Відмінно! Алгоритм рівносильного переходу за підручником Істера складено бездоганно. +20 балів!");
+        logAttempt("Алгоритм (DnD)", "Послідовність кроків 1–5 зібрана правильно", true, 20);
+      } else {
+        state.statusText.dnd2 = `Частково (${state.scores.dnd2}/20)`;
+        showFeedback("fb-dnd2", "err", `На своїх місцях ${correct} із 5 кроків (нараховано ${pts} балів). Виправте картки з червоною рамкою.`);
+        logAttempt("Алгоритм (DnD)", `Правильно ${correct}/5 кроків`, false, pts);
+      }
+    }
+
+    function resetDnd2() {
+      selectedChipId = null;
+      initDnd2();
+      document.getElementById("fb-dnd2").className = "feedback";
+    }
+
+    function checkTask1() {
+      state.attempts.t1++;
+      const s1 = parseFloat(document.getElementById("t1-step1").value);
+      const s2 = parseFloat(document.getElementById("t1-step2").value);
+
+      if (s1 === 16 && s2 === 6) {
+        state.scores.t1 = 10;
+        state.statusText.t1 = "Виконано (10/10)";
+        showFeedback("fb-t1", "ok", "Правильно! 3x − 2 = 4² = 16 ⇒ 3x = 18 ⇒ x = 6. (+10 балів)");
+        logAttempt("Тренажер №1 (Середній)", "√(3x-2)=4 → 3x-2=16, x=6", true, 10);
+      } else {
+        state.statusText.t1 = `Помилка (спроб: ${state.attempts.t1})`;
+        showFeedback("fb-t1", "err", "Перевірте обчислення: піднесіть 4 до квадрата, потім розв'яжіть лінійне рівняння.");
+        logAttempt("Тренажер №1 (Середній)", `Помилка: введено 3x-2=${s1 || "?"}, x=${s2 || "?"}`, false, 0);
+      }
+    }
+
+    function checkTask2() {
+      state.attempts.t2++;
+      const s1 = document.getElementById("t2-step1").value;
+      const s2 = parseFloat(document.getElementById("t2-step2").value);
+
+      if (s1 === "x>=0" && s2 === 3) {
+        state.scores.t2 = 12;
+        state.statusText.t2 = "Виконано (12/12)";
+        showFeedback("fb-t2", "ok", "Браво! x² − 2x − 3 = 0 дає x₁ = 3 і x₂ = −1, але умова x ≥ 0 відсіює −1. Відповідь: 3. (+12 балів)");
+        logAttempt("Тренажер №2 (Достатній)", "√(2x+3)=x → умова x≥0, корінь x=3", true, 12);
+      } else {
+        state.statusText.t2 = `Помилка (спроб: ${state.attempts.t2})`;
+        showFeedback("fb-t2", "err", "Зверніть увагу: арифметичний корінь невід'ємний, тому x ≥ 0, а з коренів 3 та −1 підходить лише один.");
+        logAttempt("Тренажер №2 (Достатній)", `Помилка: умова=${s1 || "?"}, x=${s2 || "?"}`, false, 0);
+      }
+    }
+
+    function checkTask3() {
+      state.attempts.t3++;
+      const s1 = parseFloat(document.getElementById("t3-step1").value);
+      const s2 = parseFloat(document.getElementById("t3-step2").value);
+
+      if (s1 === 4 && s2 === 16) {
+        state.scores.t3 = 13;
+        state.statusText.t3 = "Виконано (13/13)";
+        showFeedback("fb-t3", "ok", "Супер! t² − 3t − 4 = 0 ⇒ t = 4 (t = −1 < 0 не підходить). Тоді √x = 4 ⇒ x = 16. (+13 балів)");
+        logAttempt("Тренажер №3 (Високий)", "x - 3√x - 4 = 0 → t=4, x=16", true, 13);
+      } else {
+        state.statusText.t3 = `Помилка (спроб: ${state.attempts.t3})`;
+        showFeedback("fb-t3", "err", "Підказка: нехай √x = t (t ≥ 0). Розв'яжіть t² − 3t − 4 = 0, а потім піднесіть t до квадрата.");
+        logAttempt("Тренажер №3 (Високий)", `Помилка: t=${s1 || "?"}, x=${s2 || "?"}`, false, 0);
+      }
+    }
+
+    function renderReport() {
+      const pts = getTotalPoints();
+      const grade = getGrade12(pts);
+      const att = getTotalAttempts();
+      const completed = Object.values(state.scores).filter(v => v > 0).length;
+
+      document.getElementById("repPoints").textContent = `${pts} / 100`;
+      document.getElementById("repGrade").textContent = grade;
+      document.getElementById("repAttempts").textContent = att;
+      document.getElementById("repCompleted").textContent = `${completed} / 6`;
+
+      const rows = [
+        ["1. Графічна лабораторія ОДЗ", state.attempts.sim, state.statusText.sim, `${state.scores.sim} / 20`],
+        ["2. Фільтр коренів (Drag & Drop)", state.attempts.dnd1, state.statusText.dnd1, `${state.scores.dnd1} / 25`],
+        ["3. Алгоритм розв'язання (Drag & Drop)", state.attempts.dnd2, state.statusText.dnd2, `${state.scores.dnd2} / 20`],
+        ["4.1. Тренажер: Середній рівень", state.attempts.t1, state.statusText.t1, `${state.scores.t1} / 10`],
+        ["4.2. Тренажер: Достатній рівень", state.attempts.t2, state.statusText.t2, `${state.scores.t2} / 12`],
+        ["4.3. Тренажер: Високий рівень", state.attempts.t3, state.statusText.t3, `${state.scores.t3} / 13`]
+      ];
+
+      document.getElementById("reportTableBody").innerHTML = rows.map(r => `
+        <tr>
+          <td><strong>${r[0]}</strong></td>
+          <td>${r[1]}</td>
+          <td>${r[2]}</td>
+          <td><strong>${r[3]}</strong></td>
+        </tr>
+      `).join("");
+
+      const logBox = document.getElementById("attemptLogList");
+      if (state.logs.length > 0) {
+        logBox.innerHTML = state.logs.map(l => `
+          <div class="log-item">
+            <span><strong>[${l.time}] ${l.stage}:</strong> ${l.details}</span>
+            <span style="font-weight:700; color:${l.success ? "#15803d" : "#b91c1c"}; white-space:nowrap;">
+              ${l.points > 0 ? "+" + l.points + " б." : (l.success ? "ОК" : "Спроба")}
+            </span>
+          </div>
+        `).join("");
+      }
+    }
+
+    async function generatePDFReport() {
+      const name = document.getElementById("studentName").value.trim() || state.studentName || "Учень 10 класу";
+      const cls = document.getElementById("studentClass").value.trim() || state.studentClass || "10-А";
+      const pts = getTotalPoints();
+      const grade = getGrade12(pts);
+      const att = getTotalAttempts();
+      const dateStr = new Date().toLocaleString("uk-UA");
+
+      const printEl = document.getElementById("pdfPrintArea");
+      printEl.innerHTML = `
+        <div style="border-bottom:3px solid #2563eb; padding-bottom:14px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:12px; color:#2563eb; font-weight:bold; text-transform:uppercase;">Алгебра • 10 клас (програма МОН України, підручник О. С. Істера)</div>
+            <h1 style="margin:4px 0 0 0; font-size:22px; color:#0f172a;">Звіт про виконання інтерактивної роботи</h1>
+            <div style="font-size:14px; color:#475569; margin-top:4px;">Тема: «Розв'язування ірраціональних рівнянь»</div>
+          </div>
+          <div style="text-align:right; background:#eff6ff; border:2px solid #2563eb; border-radius:10px; padding:10px 16px;">
+            <div style="font-size:11px; color:#1e40af; font-weight:bold;">ОЦІНКА (12-БАЛЬНА)</div>
+            <div style="font-size:28px; font-weight:900; color:#1d4ed8;">${grade}</div>
+            <div style="font-size:12px; color:#334155;">${pts} із 100 балів</div>
+          </div>
+        </div>
+
+        <table style="width:100%; border-collapse:collapse; margin-bottom:18px; font-size:13px;">
+          <tr>
+            <td style="padding:8px; border:1px solid #cbd5e1; background:#f8fafc; width:25%;"><strong>Учень / Учениця:</strong></td>
+            <td style="padding:8px; border:1px solid #cbd5e1; width:35%;">${name}</td>
+            <td style="padding:8px; border:1px solid #cbd5e1; background:#f8fafc; width:15%;"><strong>Клас:</strong></td>
+            <td style="padding:8px; border:1px solid #cbd5e1; width:25%;">${cls}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border:1px solid #cbd5e1; background:#f8fafc;"><strong>Дата формування:</strong></td>
+            <td style="padding:8px; border:1px solid #cbd5e1;">${dateStr}</td>
+            <td style="padding:8px; border:1px solid #cbd5e1; background:#f8fafc;"><strong>Усього спроб:</strong></td>
+            <td style="padding:8px; border:1px solid #cbd5e1;">${att}</td>
+          </tr>
+        </table>
+
+        <h3 style="font-size:15px; margin:0 0 8px 0; color:#0f172a;">1. Проміжні та підсумкові результати за етапами</h3>
+        <table style="width:100%; border-collapse:collapse; margin-bottom:18px; font-size:12.5px;">
+          <thead>
+            <tr style="background:#1e293b; color:#ffffff;">
+              <th style="padding:8px; border:1px solid #1e293b; text-align:left;">Етап навчальної діяльності</th>
+              <th style="padding:8px; border:1px solid #1e293b; text-align:center;">Спроб</th>
+              <th style="padding:8px; border:1px solid #1e293b; text-align:left;">Статус виконання</th>
+              <th style="padding:8px; border:1px solid #1e293b; text-align:center;">Бали</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:7px; border:1px solid #cbd5e1;">Графічна лабораторія ОДЗ</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;">${state.attempts.sim}</td><td style="padding:7px; border:1px solid #cbd5e1;">${state.statusText.sim}</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;"><strong>${state.scores.sim} / 20</strong></td></tr>
+            <tr><td style="padding:7px; border:1px solid #cbd5e1;">Інтерактив 1: Фільтр коренів (DnD)</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;">${state.attempts.dnd1}</td><td style="padding:7px; border:1px solid #cbd5e1;">${state.statusText.dnd1}</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;"><strong>${state.scores.dnd1} / 25</strong></td></tr>
+            <tr><td style="padding:7px; border:1px solid #cbd5e1;">Інтерактив 2: Алгоритм розв'язання (DnD)</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;">${state.attempts.dnd2}</td><td style="padding:7px; border:1px solid #cbd5e1;">${state.statusText.dnd2}</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;"><strong>${state.scores.dnd2} / 20</strong></td></tr>
+            <tr><td style="padding:7px; border:1px solid #cbd5e1;">Тренажер №1 (Середній рівень)</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;">${state.attempts.t1}</td><td style="padding:7px; border:1px solid #cbd5e1;">${state.statusText.t1}</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;"><strong>${state.scores.t1} / 10</strong></td></tr>
+            <tr><td style="padding:7px; border:1px solid #cbd5e1;">Тренажер №2 (Достатній рівень)</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;">${state.attempts.t2}</td><td style="padding:7px; border:1px solid #cbd5e1;">${state.statusText.t2}</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;"><strong>${state.scores.t2} / 12</strong></td></tr>
+            <tr><td style="padding:7px; border:1px solid #cbd5e1;">Тренажер №3 (Високий рівень)</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;">${state.attempts.t3}</td><td style="padding:7px; border:1px solid #cbd5e1;">${state.statusText.t3}</td><td style="padding:7px; border:1px solid #cbd5e1; text-align:center;"><strong>${state.scores.t3} / 13</strong></td></tr>
+          </tbody>
+        </table>
+
+        <h3 style="font-size:15px; margin:0 0 8px 0; color:#0f172a;">2. Журнал зафіксованих спроб (останні 18 дій)</h3>
+        <div style="border:1px solid #cbd5e1; border-radius:6px; padding:10px; background:#f8fafc; font-size:11.5px;">
+          ${state.logs.length === 0
+            ? "<div>Спроби відсутні.</div>"
+            : state.logs.slice(0, 18).map(l => `<div style="padding:3px 0; border-bottom:1px dashed #cbd5e1;"><strong>[${l.time}] ${l.stage}:</strong> ${l.details} — <em>${l.points > 0 ? "+" + l.points + " б." : (l.success ? "Успішно" : "Невдала спроба")}</em></div>`).join("")
+          }
+        </div>
+      `;
+
+      try {
+        if (window.html2canvas && window.jspdf) {
+          const canvas = await html2canvas(printEl, { scale: 2, backgroundColor: "#ffffff" });
+          const imgData = canvas.toDataURL("image/png");
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF("p", "mm", "a4");
+          const pdfW = pdf.internal.pageSize.getWidth();
+          const pdfH = (canvas.height * pdfW) / canvas.width;
+          pdf.addImage(imgData, "PNG", 0, 0, pdfW, pdfH);
+          const safeName = name.replace(/[^a-zA-Zа-яА-ЯіІїЇєЄ0-9_-]/g, "_");
+          pdf.save(`Zvit_Irratsionalni_Rivnyannya_${safeName}.pdf`);
+        } else {
+          window.print();
+        }
+      } catch (err) {
+        console.error(err);
+        window.print();
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      updateSim();
+      initDnd1();
+      initDnd2();
+      updateUI();
+    });
+  </script>
+</body>
+</html>
